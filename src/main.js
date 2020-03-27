@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 require('./assets/css/style.css')
+require('./assets/js/style.js')
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)

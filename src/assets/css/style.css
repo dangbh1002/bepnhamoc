@@ -182,6 +182,21 @@ input:focus {
   font-size: 12px;
 }
 
+.carousel-indicators li {
+  width: 19px !important;
+  height: 19px !important;
+  margin: 0px 18px !important;
+  background: #fff !important;
+  transition: all 0.3s !important;
+  border: 0px !important;
+  border-radius: 10px !important;
+  opacity: 1 !important;
+}
+
+.carousel-indicators li.active {
+  background: #f6921e !important;
+}
+
 .slideshow .owl-theme .owl-dots .owl-dot span{
   width: 19px;
   height: 19px;
@@ -731,10 +746,10 @@ input:focus {
     left: auto;
     right: 30px;
   }
-  .slideshow .owl-theme .owl-dots .owl-dot span {
-    margin: 0 5px;
-    width: 10px;
-    height: 10px;
+  .carousel-indicators li {
+    margin: 0 5px !important;
+    width: 10px !important;;
+    height: 10px !important;;
   }
 }
 @media (max-width: 575px) {
