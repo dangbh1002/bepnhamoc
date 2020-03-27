@@ -15,4 +15,4 @@ const config = {
 // firebase utils
 export const db = firebase
   .initializeApp(config)
-  .database();
+  .database()
