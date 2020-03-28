@@ -4,23 +4,7 @@
 
     <main>
         <!-- SLIDESHOW -->
-        <b-carousel v-model="slide" :interval="4000" indicators class="slideshow">
-            <b-carousel-slide>
-                <template v-slot:img>
-                    <img class="img-fluid w-100" src="~@/assets/img/slide.jpg">
-                </template>
-            </b-carousel-slide>
-            <b-carousel-slide>
-                <template v-slot:img>
-                    <img class="img-fluid w-100" src="~@/assets/img/slide.jpg">
-                </template>
-            </b-carousel-slide>
-            <b-carousel-slide>
-                <template v-slot:img>
-                    <img class="img-fluid w-100" src="~@/assets/img/slide.jpg">
-                </template>
-            </b-carousel-slide>
-        </b-carousel>
+        <slide />
 
         <div class="main-content">
             <div class="main-content-inner">
@@ -85,12 +69,14 @@ import {
 } from '../config/db'
 import MHeader from '@/components/Header'
 import MFooter from '@/components/Footer'
+import Slide from '@/components/home/Slide'
 
 export default {
     name: 'Home',
     components: {
         MHeader,
-        MFooter
+        MFooter,
+        Slide
     },
     firebase: {
         category: db.ref('category'),
