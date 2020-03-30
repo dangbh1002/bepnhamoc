@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import { firestorePlugin } from 'vuefire'
+import VueFirestore from 'vue-firestore'
 import router from './router'
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -14,14 +14,14 @@ require('./assets/js/style.js')
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-Vue.use(firestorePlugin)
+Vue.use(VueFirestore)
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })

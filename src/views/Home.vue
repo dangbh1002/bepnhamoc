@@ -64,9 +64,7 @@
 </template>
 
 <script>
-import {
-    db
-} from '../config/db'
+import { db } from '../config/firebase.js'
 import MHeader from '@/components/Header'
 import MFooter from '@/components/Footer'
 import Slide from '@/components/home/Slide'
@@ -78,21 +76,14 @@ export default {
         MFooter,
         Slide
     },
-    firebase: {
-        category: db.ref('category'),
-        itemsObj: {
-            source: db.ref('category'),
-            asObject: true
-        }
-    },
-    data() {
+    data () {
         return {
             msg: 'Welcome to Bếp nhà Mộc',
-            slide: 0,
+            slide: 0
         }
     },
-    created() {
-        console.log(this.itemsObj)
+    created () {
+        // console.log(this.itemsObj)
         // db.collection('category')
         // .get()
         // .then(querySnapshot => {
