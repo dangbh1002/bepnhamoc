@@ -1,6 +1,6 @@
 <template>
 <div>
-    <m-header :is-menu="true" />
+    <m-header :is-contact="true" />
 
     <main>
         <div class="category-content">
@@ -58,16 +58,16 @@ import MFooter from '@/components/Footer'
 import MenuLeft from '@/components/MenuLeft'
 
 export default {
-    name: 'Detail',
+    name: 'ContactUs',
     components: {
         MHeader,
         MFooter,
         MenuLeft
     },
-    data() {
+    data () {
         return {}
     },
-    created() {},
+    created () {},
     methods: {}
 }
 </script>

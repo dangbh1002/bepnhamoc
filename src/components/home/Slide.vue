@@ -1,18 +1,8 @@
 <template>
 <b-carousel v-model="slide" :interval="4000" indicators class="slideshow">
-    <b-carousel-slide>
-        <template v-slot:img>
-            <img class="img-fluid w-100" src="~@/assets/img/slide.jpg">
-        </template>
-    </b-carousel-slide>
-    <b-carousel-slide>
-        <template v-slot:img>
-            <img class="img-fluid w-100" src="~@/assets/img/slide.jpg">
-        </template>
-    </b-carousel-slide>
-    <b-carousel-slide>
-        <template v-slot:img>
-            <img class="img-fluid w-100" src="~@/assets/img/slide.jpg">
+    <b-carousel-slide v-for="item in data">
+        <template slot="img">
+            <img :src="item.img" class="img-fluid w-100" >
         </template>
     </b-carousel-slide>
 </b-carousel>
@@ -21,10 +11,16 @@
 <script>
 export default {
     name: 'Slide',
-    data() {
-        return {
-            slide: 0,
+    props: {
+        data: {
+            type: Array,
+            default: null
         }
     },
+    data () {
+        return {
+            slide: 0
+        }
+    }
 }
 </script>

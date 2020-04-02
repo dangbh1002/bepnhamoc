@@ -1,95 +1,67 @@
 <template>
-<div>
-    <m-header :is-home="true" />
+  <div>
 
-    <main>
+    <m-header :is-home="true"/>
+
+    <!--<div style="text-align: center">-->
+      <!--<b-spinner v-if="isLoading" label="Spinning" class="my-5"></b-spinner>-->
+    <!--</div>-->
+
+    <template v-show="!isLoading">
+      <main>
         <!-- SLIDESHOW -->
-        <slide />
+        <slide :data="slide"/>
+        <item
+          v-for="item in list"
+          :banner="item.banner"
+          :img="item.img"
+          :title="item.title"
+          :content="item.content"
+          :footer="item.footer"
+          :type="item.type"
+        />
+      </main>
 
-        <div class="main-content">
-            <div class="main-content-inner">
-                <div class="content-image">
-                    <img class="img-fluid" src="~@/assets/img/image-2.png" />
-                </div>
-                <div class="content-text">
-                    <h3>Các loại bánh</h3>
-                    <p>Nơi chia sẻ những công thức làm món ăn của nhà Mộc. Các loại bánh ngọt, bánh mỳ, bánh dinh dưỡng... Cũng như những hình ảnh đẹp của các loại bánh nhà Mộc làm. Cùng nhau khám phá xem trong căn bếp nhà Mộc có những món bánh nào nhé!</p>
-                    <p class="text-below">Mộc Bkery</p>
-                </div>
-            </div>
-        </div>
+      <m-footer v-if="!isLoading"/>
 
-        <div class="banner">
-            <img class="img-fluid" src="~@/assets/img/bn1.jpg" alt="" />
-        </div>
-
-        <div class="main-content">
-            <div class="main-content-inner">
-                <div class="content-image">
-                    <img class="img-fluid" src="~@/assets/img/image-1.png" />
-                </div>
-                <div class="content-text">
-                    <h3>Các món ăn</h3>
-                    <p>Nơi chia sẻ những công thức làm món ăn của nhà Mộc. Các loại bánh ngọt, bánh mỳ, bánh dinh dưỡng... Cũng như những hình ảnh đẹp của các loại bánh nhà Mộc làm. Cùng nhau khám phá xem trong căn bếp nhà Mộc có những món bánh nào nhé!</p>
-                    <p class="text-below">Mộc Food</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="banner">
-            <img class="img-fluid" src="~@/assets/img/bn2.jpg" alt="" />
-        </div>
-
-        <div class="main-content last">
-            <div class="main-content-inner">
-                <div class="content-image">
-                    <img class="img-fluid" src="~@/assets/img/image-2.png" />
-                </div>
-                <div class="content-text">
-                    <h3>Công thức</h3>
-                    <p>Nơi chia sẻ những công thức làm món ăn của nhà Mộc. Các loại bánh ngọt, bánh mỳ, bánh dinh dưỡng... Cũng như những hình ảnh đẹp của các loại bánh nhà Mộc làm. Cùng nhau khám phá xem trong căn bếp nhà Mộc có những món bánh nào nhé!</p>
-                    <p class="text-below">Mộc's Recipe</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="banner">
-            <img class="img-fluid" src="~@/assets/img/bn3.jpg" alt="" />
-        </div>
-
-    </main>
-
-    <m-footer />
-</div>
+    </template>
+  </div>
 </template>
 
 <script>
-import { db } from '../config/firebase.js'
+import {db} from '@/config/firebase'
 import MHeader from '@/components/Header'
 import MFooter from '@/components/Footer'
 import Slide from '@/components/home/Slide'
+import Item from '@/components/home/Item'
 
 export default {
     name: 'Home',
     components: {
         MHeader,
         MFooter,
-        Slide
+        Slide,
+        Item
     },
     data () {
         return {
-            msg: 'Welcome to Bếp nhà Mộc',
-            slide: 0
+            isLoading: true,
+            slide: null,
+            list: null
+        }
+    },
+    firestore () {
+        return {
+            slide: db.collection('slide'),
+            list: db.collection('home')
         }
     },
     created () {
-        // console.log(this.itemsObj)
-        // db.collection('category')
-        // .get()
-        // .then(querySnapshot => {
-        //   const documents = querySnapshot.docs.map(doc => doc.data())
-        //   // do something with documents
-        // })
+        if (this.slide && this.list) {
+            setTimeout(() => {
+                this.isLoading = false
+            }, 1000)
+        }
     },
     methods: {}
 }

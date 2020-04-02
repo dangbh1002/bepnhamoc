@@ -1,6 +1,6 @@
 <template>
 <div>
-    <m-header :is-menu="true" />
+    <m-header :is-menu="true"/>
 
     <main>
         <div class="category-content">
@@ -31,19 +31,19 @@ import MenuLeft from '@/components/MenuLeft'
 import Item from '@/components/detail/Item'
 
 export default {
-    name: 'Category',
+    name: 'Menu',
     components: {
         MHeader,
         MFooter,
         MenuLeft,
         Item
     },
-    data() {
+    data () {
         return {
             content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet blandit elit. Nam rutrum dictum pretium. Donec arcu velit, feugiat et aliquam vel, vulputate quis sem. Vestibulum sit amet lobortis diam. Integer lacinia nulla at nisl tristique porttitor. Aenean commodo lacus et erat elementum, eu facilisis enim efficitur.'
         }
     },
-    created() {},
+    created () {},
     methods: {}
 }
 </script>

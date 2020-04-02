@@ -1,21 +1,30 @@
 <template>
 <div>
-  <div>
-    <input type="text"
-           v-model="newReptile"
-           @keyup.enter="addReptile">
-    <button @click="addReptile">
-      Add Reptile
-    </button>
-  </div>
-  <ul class="reptileList">
-    <li v-for="reptile in reptiles">
-      {{ reptile.name }} -
-      <button @click="deleteReptile(reptile)">
-        Remove
-      </button>
+  <!--<div>-->
+    <!--<input type="text"-->
+           <!--v-model="newReptile"-->
+           <!--@keyup.enter="addReptile">-->
+    <!--<button @click="addReptile">-->
+      <!--Add Reptile-->
+    <!--</button>-->
+  <!--</div>-->
+  <!--<ul class="reptileList">-->
+    <!--<li v-for="reptile in reptiles">-->
+      <!--{{ reptile.name }} - -->
+      <!--<button @click="deleteReptile(reptile)">-->
+        <!--Remove-->
+      <!--</button>-->
+    <!--</li>-->
+  <!--</ul>-->
+
+  <ul class="reptileList mt-5">
+    <!--{{ JSON.stringify(data) }}-->
+    <li v-for="item in data">
+      {{ item.img }} <br/>
     </li>
   </ul>
+
+  <!--<file-uploader/>-->
 
   <div >
     <p>Upload an image to Firebase:</p>
@@ -29,18 +38,24 @@
     <img class="preview" :src="picture">
     <br>
     <button @click="onUpload">Upload</button>
+    <button @click="onDelete">Delete</button>
   </div>
 </div>
 </template>
 
 <script>
-import { db } from '../config/firebase.js'
+import { db, firestorage } from '@/config/firebase'
+import FileUploader from '@/components/FileUploader'
 
 export default {
     name: 'Test',
+    components: {
+        FileUploader
+    },
     data () {
         return {
             reptiles: [],
+            data: [],
             newReptile: '',
             imageData: null,
             picture: null,
@@ -49,7 +64,8 @@ export default {
     },
     firestore () {
         return {
-            reptiles: db.collection('reptiles')
+            // reptiles: db.collection('reptiles'),
+            data: db.collection('slide')
         }
     },
     methods: {
@@ -74,7 +90,7 @@ export default {
 
         onUpload () {
             this.picture = null
-            const storageRef = firebase.storage().ref(`${this.imageData.name}`).put(this.imageData)
+            const storageRef = firestorage.ref(`${this.imageData.name}`).put(this.imageData)
             storageRef.on(`state_changed`, snapshot => {
                 this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             }, error => { console.log(error.message) },
@@ -85,6 +101,17 @@ export default {
                 })
             }
             )
+        },
+        onDelete () {
+            firestorage
+                .ref(`${this.imageData.name}`)
+                .delete()
+                .then(() => {
+                    this.picture = ''
+                })
+                .catch((error) => {
+                    console.error(`file delete error occured: ${error}`)
+                })
         }
     }
 }

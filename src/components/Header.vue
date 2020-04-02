@@ -18,44 +18,38 @@
                                 <router-link :to="{name: 'Home'}" :class="{'active': isHome}" class="nav-link">Home -<span class="sr-only">(current)</span></router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link v-if="!showMenu" :to="{name: 'Category'}" :class="{'active': isMenu}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Menu -</router-link>
+                                <router-link v-if="!showMenu" :to="{name: 'Menu'}" :class="{'active': isMenu}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Menu -</router-link>
                                 <a v-else="" :class="{'active': isMenu}" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" @click="toogleMenuMenu">Menu -</a>
                                 <ul :class="{'show': showMenu && showMenuMenu}" class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li class="nav-item">
-                                        <router-link :to="{name: 'Category'}" class="dropdown-item">Bánh A</router-link>
+                                        <router-link :to="{name: 'Menu'}" class="dropdown-item">Bánh A</router-link>
                                     </li>
                                     <li class="nav-item">
-                                        <router-link :to="{name: 'Category'}" class="dropdown-item">Bánh B</router-link>
+                                        <router-link :to="{name: 'Menu'}" class="dropdown-item">Bánh B</router-link>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <router-link v-if="!showMenu" :to="{name: 'Category'}" :class="{'active': isRecipe}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Recipe -</router-link>
-                                <a v-else="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" @click="toogleMenuRecipe">Recipe -</a>
+                                <router-link v-if="!showMenu" :to="{name: 'Recipe'}" :class="{'active': isRecipe}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Recipe -</router-link>
+                                <a v-else="" class="nav-link dropdown-toggle" role="button" @click="toogleMenuRecipe">Recipe -</a>
                                 <ul :class="{'show': showMenu && showMenuRecipe}" class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li class="nav-item">
-                                        <router-link :to="{name: 'Category'}" class="dropdown-item">Bánh A</router-link>
+                                        <router-link :to="{name: 'Recipe'}" class="dropdown-item">Bánh A</router-link>
                                     </li>
                                     <li class="nav-item">
-                                        <router-link :to="{name: 'Category'}" class="dropdown-item">Bánh B</router-link>
+                                        <router-link :to="{name: 'Recipe'}" class="dropdown-item">Bánh B</router-link>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Contact us -</a>
+                              <router-link :to="{name: 'Contact'}" :class="{'active': isContact}" class="nav-link" >Contact us -</router-link>
                             </li>
                         </ul>
                     </div>
                 </nav>
                 <div class="logo">
-                    <!-- <router-link :to="{name: 'Home'}" class="hidden-sm-down">
-                        <img class="img-fluid" src="~@/assets/img/logo.png" />
-                    </router-link>
-                    <router-link :to="{name: 'Home'}" class="hidden-md-up">
-                        <img class="img-fluid" src="~@/assets/img/logo-mobile.png" />
-                    </router-link> -->
-                    <a class="hidden-sm-down" href="#"><img class="img-fluid" src="~@/assets/img/logo.png" /></a>
-                    <a class="hidden-md-up" href="#"><img class="img-fluid" src="~@/assets/img/logo-mobile.jpg" /></a>
+                    <a class="hidden-sm-down" href="/"><img class="img-fluid" src="~@/assets/img/logo.png" /></a>
+                    <a class="hidden-md-up" href="/"><img class="img-fluid" src="~@/assets/img/logo-mobile.jpg" /></a>
                 </div>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-6">
@@ -75,18 +69,22 @@ export default {
     props: {
         isHome: {
             type: Boolean,
-            defaul: false,
+            defaul: false
         },
         isMenu: {
             type: Boolean,
-            defaul: false,
+            defaul: false
         },
         isRecipe: {
             type: Boolean,
-            defaul: false,
+            defaul: false
+        },
+        isContact: {
+            type: Boolean,
+            defaul: false
         }
     },
-    data() {
+    data () {
         return {
             showMenu: false,
             showMenuMenu: false,
@@ -94,15 +92,15 @@ export default {
         }
     },
     methods: {
-        toogleMenu() {
-            this.showMenu = !this.showMenu;
+        toogleMenu () {
+            this.showMenu = !this.showMenu
         },
-        toogleMenuMenu() {
-            this.showMenuMenu = !this.showMenuMenu;
+        toogleMenuMenu () {
+            this.showMenuMenu = !this.showMenuMenu
         },
-        toogleMenuRecipe() {
-            this.showMenuRecipe = !this.showMenuRecipe;
+        toogleMenuRecipe () {
+            this.showMenuRecipe = !this.showMenuRecipe
         }
-    },
+    }
 }
 </script>
