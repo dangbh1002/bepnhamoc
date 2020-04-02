@@ -3,16 +3,17 @@
 
     <m-header :is-home="true"/>
 
-    <div style="text-align: center">
-      <b-spinner v-show="isLoading" label="Spinning" class="my-5"></b-spinner>
-    </div>
+    <!--<div style="text-align: center">-->
+      <!--<b-spinner v-show="isLoading" label="Spinning" class="my-5"></b-spinner>-->
+    <!--</div>-->
 
     <template v-show="!isLoading">
       <main>
         <!-- SLIDESHOW -->
         <slide :data="slide"/>
         <item
-          v-for="item in list"
+          v-for="(item, index) in list"
+          :key=index
           :banner="item.banner"
           :img="item.img"
           :title="item.title"

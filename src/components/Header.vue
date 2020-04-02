@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-8 col-sm-8 col-xs-3">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <button class="navbar-toggler" type="button" @click="toogleMenu"><img src="~@/assets/img/btn-menu.jpg" alt="btn menu" /></button>
+                    <button class="navbar-toggler" type="button" @click="toogleMenu"><img src="~@/assets/img/btn-menu.png" alt="btn menu" class="btn-menu" /></button>
                     <div :class="{'show': showMenu}" class="collapse navbar-collapse" id="navbarNav">
                         <i class="fa fa-times close" @click="toogleMenu"></i>
                         <div class="bg-over-lay"></div>

@@ -6,7 +6,7 @@ import Recipe from '@/views/Recipe'
 import Detail from '@/views/Detail'
 import Contact from '@/views/ContactUs'
 import Admin from '@/views/Admin'
-import Test from '@/views/Test'
+// import Test from '@/views/Test'
 import Login from '@/views/Login'
 
 import {auth} from '@/config/firebase'
@@ -53,12 +53,12 @@ const router = new Router({
             path: '/login',
             name: 'Login',
             component: Login
-        },
-        {
-            path: '/test',
-            name: 'Test',
-            component: Test
         }
+        // {
+        //     path: '/test',
+        //     name: 'Test',
+        //     component: Test
+        // }
     ]
 })
 router.beforeEach((to, from, next) => {

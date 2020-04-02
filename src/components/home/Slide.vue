@@ -1,6 +1,6 @@
 <template>
 <b-carousel v-model="slide" :interval="4000" indicators class="slideshow">
-    <b-carousel-slide v-for="item in data">
+    <b-carousel-slide v-for="(item, index) in data" :key=index>
         <template slot="img">
             <img :src="item.img" class="img-fluid w-100" >
         </template>

@@ -59,4 +59,7 @@ export default {
     position: absolute;
     right: 0;
   }
+  input[type=file] {
+    position: relative !important;
+}
 </style>

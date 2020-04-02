@@ -185,14 +185,22 @@ input:focus {
   font-size: 12px;
 }
 
+.btn-menu {
+  width: 30px;
+}
+
 .hidden-sm-down img{
   width: 100px;
   margin-top: 15px;
 }
 
+.carousel-item {
+  min-width: 100px;
+}
+
 .carousel-indicators li {
-  width: 13px !important;
-  height: 13px !important;
+  width: 10px !important;
+  height: 10px !important;
   margin: 0px 18px !important;
   background: #fff !important;
   transition: all 0.3s !important;
@@ -514,6 +522,10 @@ input:focus {
     position: absolute;
     top: 25px;
   }
+  .header .hd-lang img{
+    width: 50px;
+    margin-top: 5px;
+  }
   .header .row > div:last-child form {
     position: absolute;
     top: 25px;
@@ -666,6 +678,8 @@ input:focus {
     display: block;
     position: absolute;
     right: 15px;
+    background-size: 20px auto;
+    background-repeat: no-repeat;
   }
   .header .navbar-expand-lg .navbar-nav .dropdown-menu {
     background: none;

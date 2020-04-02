@@ -19,7 +19,7 @@
 
   <ul class="reptileList mt-5">
     <!--{{ JSON.stringify(data) }}-->
-    <li v-for="item in data">
+    <li v-for="(item, index) in data" :key=index>
       {{ item.img }} <br/>
     </li>
   </ul>
