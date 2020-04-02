@@ -7,10 +7,13 @@ import Detail from '@/views/Detail'
 import Contact from '@/views/ContactUs'
 import Admin from '@/views/Admin'
 import Test from '@/views/Test'
+import Login from '@/views/Login'
+
+import {auth} from '@/config/firebase'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     mode: 'history',
     routes: [
         {
@@ -41,7 +44,15 @@ export default new Router({
         {
             path: '/admin',
             name: 'Admin',
-            component: Admin
+            component: Admin,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login
         },
         {
             path: '/test',
@@ -50,3 +61,15 @@ export default new Router({
         }
     ]
 })
+router.beforeEach((to, from, next) => {
+    const currentUser = auth.currentUser
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+
+    if (requiresAuth && !currentUser) {
+        next('login')
+    } else {
+        next()
+    }
+})
+
+export default router

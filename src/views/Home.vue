@@ -3,9 +3,9 @@
 
     <m-header :is-home="true"/>
 
-    <!--<div style="text-align: center">-->
-      <!--<b-spinner v-if="isLoading" label="Spinning" class="my-5"></b-spinner>-->
-    <!--</div>-->
+    <div style="text-align: center">
+      <b-spinner v-show="isLoading" label="Spinning" class="my-5"></b-spinner>
+    </div>
 
     <template v-show="!isLoading">
       <main>
@@ -60,7 +60,7 @@ export default {
         if (this.slide && this.list) {
             setTimeout(() => {
                 this.isLoading = false
-            }, 1000)
+            }, 2000)
         }
     },
     methods: {}
