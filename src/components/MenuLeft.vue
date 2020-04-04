@@ -1,39 +1,54 @@
 <template>
 <div class="column-left">
     <ul>
-        <li>
-            <a href="#" title="Các loại bánh">Các loại bánh</a>
-            <ul class="nqt-submenu">
-                <li class="nav-item">
-                    <router-link :to="{name: 'Menu'}" class="dropdown-item">Bánh Á</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link :to="{name: 'Menu'}" class="dropdown-item">Bánh Âu</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link :to="{name: 'Menu'}" class="dropdown-item">Bánh dinh dưỡng</router-link>
+        <li v-for="(item, key) in list" :key="key" v-if="getFirstChild(item['.key'])">
+            <router-link :to="{name: 'MenuDetail', params: {id: getFirstChild(item['.key']) }}" :class="{ 'selected': activeArr.includes(item['.key']) }">
+              {{item.name}}
+            </router-link>
+            <ul v-if="Object.keys(item.child).length" class="nqt-submenu">
+                <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
+                    <router-link :to="{name: 'MenuDetail', params: {id}}" :class="{'selected': activeArr.includes(id) }" class="dropdown-item">{{item.child[id]}}</router-link>
                 </li>
             </ul>
-        </li>
-        <li>
-          <a href="#" title="Các món ăn">Các món ăn</a>
         </li>
     </ul>
 </div>
 </template>
 
 <script>
+import {db} from '@/config/firebase'
 export default {
     name: 'MenuLeft',
-    props: {
-        isHome: {
-            type: Boolean,
-            defaul: true
+    data () {
+        return {
+            list: [],
         }
     },
-    data () {
-        return {}
+    firestore () {
+        return {
+            list: db.collection('menu')
+        }
     },
-    methods: {}
+    computed: {
+        activeArr () {
+            const arr = []
+            const selected = this.selected || 'banh-a'
+            const filter = this.list.filter((item) => item.child[selected])
+            arr.push(selected)
+            if (filter) {
+                arr.push(filter[0]['.key'])
+            }
+            return arr
+        },
+        selected () {
+            return this.$route.params.id || null
+        }
+    },
+    methods: {
+        getFirstChild (key) {
+            const filter = this.list.filter((item) => item['.key'] === key)[0]
+            return Object.keys(filter.child).length && Object.keys(filter.child)[0]
+        }
+    }
 }
 </script>

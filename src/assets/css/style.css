@@ -341,7 +341,7 @@ input:focus {
   margin-right: 5px;
   float: left;
 }
-.category-content .column-left > ul > li:first-child > a:before {
+.category-content .column-left ul li a.selected:before {
   content: '';
   display: block;
   width: 15px;

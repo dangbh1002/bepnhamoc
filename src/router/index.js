@@ -27,6 +27,11 @@ const router = new Router({
             component: Menu
         },
         {
+            path: '/menu/:id',
+            name: 'MenuDetail',
+            component: Menu
+        },
+        {
             path: '/recipe',
             name: 'Recipe',
             component: Recipe
@@ -54,11 +59,6 @@ const router = new Router({
             name: 'Login',
             component: Login
         }
-        // {
-        //     path: '/test',
-        //     name: 'Test',
-        //     component: Test
-        // }
     ]
 })
 router.beforeEach((to, from, next) => {
