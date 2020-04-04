@@ -6,7 +6,9 @@
 
       <template v-slot:table-colgroup="scope">
         <col width="25%">
-        <col width="10%">
+        <col width="15%">
+        <col width="25%">
+        <col width="15%">
         <col width="25%">
       </template>
 
@@ -48,6 +50,63 @@
         </b-button>
       </template>
 
+      <template v-slot:cell(title)="{item}">
+        <template v-if="!isEditing.title[item['.key']]">
+          <div>{{item.title}}</div>
+          <b-button variant="outline-primary mt-3" @click="setModeEdit(item['.key'], 'title')">
+            Edit
+          </b-button>
+        </template>
+        <template v-else="">
+          <b-form-input v-model="title[item['.key']]"/>
+
+          <b-button variant="primary mt-3" @click="updateData(item['.key'], 'title')">
+            Save
+          </b-button>
+          <b-button variant="secondary mt-3" @click="cancelEdit(item['.key'], 'title')">
+            Cancel
+          </b-button>
+        </template>
+      </template>
+
+      <template v-slot:cell(footer)="{item}">
+        <template v-if="!isEditing.footer[item['.key']]">
+          <div>{{item.footer}}</div>
+          <b-button variant="outline-primary mt-3" @click="setModeEdit(item['.key'], 'footer')">
+            Edit
+          </b-button>
+        </template>
+        <template v-else="">
+          <b-form-input v-model="footer[item['.key']]"/>
+
+          <b-button variant="primary mt-3" @click="updateData(item['.key'], 'footer')">
+            Save
+          </b-button>
+          <b-button variant="secondary mt-3" @click="cancelEdit(item['.key'], 'footer')">
+            Cancel
+          </b-button>
+        </template>
+      </template>
+
+      <template v-slot:cell(content)="{item}">
+        <template v-if="!isEditing.content[item['.key']]">
+          <div>{{item.content}}</div>
+          <b-button variant="outline-primary mt-3" @click="setModeEdit(item['.key'], 'content')">
+            Edit
+          </b-button>
+        </template>
+        <template v-else="">
+          <div><b-form-textarea v-model="content[item['.key']]" rows="5"/></div>
+
+          <b-button variant="primary mt-3" @click="updateData(item['.key'], 'content')">
+            Save
+          </b-button>
+          <b-button variant="secondary mt-3" @click="cancelEdit(item['.key'], 'content')">
+            Cancel
+          </b-button>
+        </template>
+      </template>
+
     </b-table>
   </div>
 
@@ -70,18 +129,25 @@ export default {
                 'footer',
                 'banner'
             ],
+            list: [],
             imageData: {},
             preview: {},
             uploadValue: {},
             imageDataBanner: {},
             previewBanner: {},
-            uploadValueBanner: {}
+            uploadValueBanner: {},
+            title: {},
+            footer: {},
+            content: {},
+            isEditing: {title: {}, footer: {}, content: {}}
         }
     },
     firestore () {
         return {
             list: db.collection('home')
         }
+    },
+    mounted () {
     },
     methods: {
         getItem (key) {
@@ -157,6 +223,24 @@ export default {
                 })
             }
             )
+        },
+        setModeEdit (key, type) {
+            this.isEditing[type] = {...this.isEditing[type], [key]: true}
+            this[type] = {...this[type], [key]: this.getItem(key)[type]}
+        },
+        cancelEdit (key, type) {
+            this.isEditing[type] = {...this.isEditing[type], [key]: false}
+            delete this[type][key]
+        },
+        updateData (key, type) {
+            this.$firestore.list.doc(key).update({
+                [type]: this[type][key]
+            }).then(() => {
+                this.isEditing[type][key] = false
+                console.log('Document successfully updated!')
+            }).catch((error) => {
+                console.error('Error' + error)
+            })
         }
     }
 }

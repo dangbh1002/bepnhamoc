@@ -1,10 +1,22 @@
 <template>
   <div class="mb-5 mr-5 ml-5">
     <b-navbar class="m-auto">
-      <b-navbar-brand :class="{active: menu.slide}" class="cursor-point" @click="onClick('slide')">Home/Slide</b-navbar-brand>
-      <b-navbar-brand :class="{active: menu.content}" class="cursor-point" @click="onClick('content')">Home/Content</b-navbar-brand>
+      <b-navbar-nav style="font-size: 1.25em">
 
-      <b-navbar-brand right class="cursor-point right" @click="signOut">Sign-out</b-navbar-brand>
+        <!-- Navbar dropdowns -->
+        <b-nav-item-dropdown text="Home" left>
+          <b-dropdown-item @click="onClick('slide')">Slide</b-dropdown-item>
+          <b-dropdown-item  @click="onClick('content')">Content</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item-dropdown text="User" left>
+          <b-dropdown-item href="#">Account</b-dropdown-item>
+          <b-dropdown-item href="#">Settings</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item right @click="signOut" class="cursor-point right">Sign-out</b-nav-item>
+      </b-navbar-nav>
+
     </b-navbar>
 
     <slide v-if="menu.slide"/>
