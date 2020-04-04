@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="mt-5">Content</h2>
+    <h2 class="mt-3">Content</h2>
 
     <b-table :items="list" :fields="fields">
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="mt-5">Slide</h2>
+    <h2 class="mt-2">Slide</h2>
 
     <b-table :items="slide" :fields="fields">
 

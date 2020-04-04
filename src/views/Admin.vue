@@ -9,8 +9,8 @@
           <b-dropdown-item  @click="onClick('content')">Content</b-dropdown-item>
         </b-nav-item-dropdown>
 
-        <b-nav-item-dropdown text="User" left>
-          <b-dropdown-item href="#">Account</b-dropdown-item>
+        <b-nav-item-dropdown text="Menu" left>
+          <b-dropdown-item @click="onClick('menuList')">List</b-dropdown-item>
           <b-dropdown-item href="#">Settings</b-dropdown-item>
         </b-nav-item-dropdown>
 
@@ -23,6 +23,8 @@
 
     <home-content v-if="menu.content"/>
 
+    <menu-list v-if="menu.menuList"/>
+
   </div>
 
 </template>
@@ -31,11 +33,13 @@
 import {auth} from '@/config/firebase'
 import Slide from '@/components/admin/Slide'
 import HomeContent from '@/components/admin/Content'
+import MenuList from '@/components/admin/MenuList'
 export default {
     name: 'Admin',
     components: {
         Slide,
-        HomeContent
+        HomeContent,
+        MenuList
     },
     data () {
         return {
