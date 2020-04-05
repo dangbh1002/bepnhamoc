@@ -37,6 +37,11 @@ const router = new Router({
             component: Recipe
         },
         {
+            path: '/recipe/:id',
+            name: 'RecipeDetail',
+            component: Recipe
+        },
+        {
             path: '/detail',
             name: 'Detail',
             component: Detail

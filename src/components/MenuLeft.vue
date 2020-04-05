@@ -2,12 +2,12 @@
 <div class="column-left">
     <ul>
         <li v-for="(item, key) in list" :key="key" v-if="getFirstChild(item['.key'])">
-            <router-link :to="{name: 'MenuDetail', params: {id: getFirstChild(item['.key']) }}" :class="{ 'selected': activeArr.includes(item['.key']) }">
+            <router-link :to="{name: !isRecipe ? 'MenuDetail' : 'RecipeDetail', params: {id: getFirstChild(item['.key']) }}" :class="{ 'selected': activeArr.includes(item['.key']) }">
               {{item.name}}
             </router-link>
             <ul v-if="Object.keys(item.child).length" class="nqt-submenu">
                 <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
-                    <router-link :to="{name: 'MenuDetail', params: {id}}" :class="{'selected': activeArr.includes(id) }" class="dropdown-item">{{item.child[id]}}</router-link>
+                    <router-link :to="{name: !isRecipe ? 'MenuDetail' : 'RecipeDetail', params: {id}}" :class="{'selected': activeArr.includes(id) }" class="dropdown-item">{{item.child[id]}}</router-link>
                 </li>
             </ul>
         </li>
@@ -19,6 +19,12 @@
 import {db} from '@/config/firebase'
 export default {
     name: 'MenuLeft',
+    props: {
+        isRecipe: {
+            type: Boolean,
+            defaul: false
+        }
+    },
     data () {
         return {
             list: []

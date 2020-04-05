@@ -4,7 +4,7 @@
 
     <main>
         <div class="category-content">
-            <menu-left />
+            <menu-left :is-recipe="true"/>
 
             <div class="column-right">
                 <div class="column-right-inner">
