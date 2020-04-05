@@ -21,7 +21,7 @@ export default {
     name: 'MenuLeft',
     data () {
         return {
-            list: [],
+            list: []
         }
     },
     firestore () {

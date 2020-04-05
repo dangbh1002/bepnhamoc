@@ -2,18 +2,18 @@
 <footer>
     <div class="footer">
         <div class="logo-footer">
-            <img src="~@/assets/img/ft-logo.jpg" alt="logo-footer" />
+            <img src="~@/assets/img/ft-logo.png" />
             <span>Bakery & food</span>
         </div>
         <div class="ft-social">
             <ul>
                 <li>
-                    <a href="http://shorturl.at/doO01" title="yt">
-                        <img src="~@/assets/img/youtube.png" alt="fb" />
+                    <a href="http://shorturl.at/doO01" title="youtube">
+                        <img src="~@/assets/img/youtube.png" alt="youtube" />
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.facebook.com/bepmoc19/" title="fb">
+                    <a href="https://www.facebook.com/bepmoc19/" title="facebook">
                         <img src="~@/assets/img/fb.png" alt="fb" />
                     </a>
                 </li>
@@ -25,13 +25,13 @@
             </ul>
         </div>
         <div class="ft-phone">
-            <a href="tel:0866426888" title="instagram">
+            <a href="tel:0866426888" title="phone">
                 <img src="~@/assets/img/phone.png" alt="phone" />
                 <span>0866.426.888</span>
             </a>
         </div>
         <div class="ft-email">
-            <a href="#" title="instagram">
+            <a href="#" title="email">
                 <img src="~@/assets/img/gmail.png" alt="phone" />
                 <span>bepnhamoc.contact@gmail.com<br />bepmoc.ads@gmail.com</span>
             </a>

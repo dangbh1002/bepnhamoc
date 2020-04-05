@@ -282,7 +282,7 @@ input:focus {
   border-top: 1px solid #3b2314;
 }
 .footer {
-  padding: 25px 100px;
+  padding: 10px 100px;
   background: #3b2314;
   display: flex;
   align-items: center;
@@ -294,6 +294,9 @@ input:focus {
   font-size: 24px;
   text-transform: uppercase;
   padding-left: 20px;
+}
+.logo-footer img {
+  max-width: 100px;
 }
 .ft-social li {
   padding: 0 30px;
@@ -494,7 +497,7 @@ input:focus {
     padding: 0 15px;
   }
   .footer {
-    padding: 25px 30px;
+    padding: 10px 30px;
   }
 }
 
@@ -578,7 +581,7 @@ input:focus {
     height: 50px;
     line-height: 50px;
     text-align: center;
-	float:left;
+	  float:left;
   }
   .category-content .column-right {
     width: 100%;
@@ -587,13 +590,14 @@ input:focus {
     display: none;
   }
   .footer {
-    padding: 25px 30px 50px;
+    padding: 10px 30px 50px;
     position: relative;
+    margin-top: 10px;
   }
   .ft-social {
     position: absolute;
     left: 206px;
-    top: 115px;
+    top: 74px;
   }
   .banner {
     display: none;
@@ -763,6 +767,7 @@ input:focus {
   }
   .footer {
     display: inherit;
+    padding: 10px 30px;
   }
   .header .row > div:last-child, .header .row > div:first-child {
     display: none;
@@ -795,7 +800,7 @@ input:focus {
   }
   .ft-social {
     position: static;
-    padding-top: 30px;
+    padding-top: 15px;
     display: inline-block;
     width: 100%;
   }
@@ -803,7 +808,7 @@ input:focus {
     padding-left: 0;
   }
   .ft-phone {
-    padding: 15px 0;
+    padding: 8px 0;
   }
   .header .logo {
     left: 10px;
@@ -820,27 +825,33 @@ input:focus {
   }
 }
 @media (max-width: 767px) and (min-width: 576px) {
+  .ft-social {
+    top: 25px;
+    left: 60%;
+  }
   .ft-email {
     width: 50%;
     display: inline-block;
-    padding-top: 30px;
+    padding-top: 0;
+    padding-left: 13%;
   }
   .ft-phone {
     width: 50%;
     float: left;
-    padding-top: 30px;
+    padding-left: 20%;
+    padding-top: 0;
   }
 }
 @media (max-width: 991px) and (min-width: 768px) {
   .ft-phone {
     position: absolute;
     left: 500px;
-    top: 64px;
+    top: 40px;
   }
   .ft-email {
     position: absolute;
     left: 500px;
-    top: 114px;
+    top: 80px;
   }
 }
 @media (min-width: 1440px) {
