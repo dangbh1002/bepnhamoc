@@ -58,6 +58,7 @@
 
     </b-table>
 
+    <hr>
     <menu-category v-if="selectDetail" :select-detail="selectDetail"/>
   </div>
 

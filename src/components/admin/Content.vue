@@ -118,7 +118,6 @@ export default {
     name: 'Content',
     data () {
         return {
-            slide: null,
             fields: [
                 {
                     key: 'img',
@@ -146,8 +145,6 @@ export default {
         return {
             list: db.collection('home')
         }
-    },
-    mounted () {
     },
     methods: {
         getItem (key) {

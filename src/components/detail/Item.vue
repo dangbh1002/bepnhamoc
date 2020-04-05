@@ -3,7 +3,7 @@
     <div class="cate-item-inner">
         <div class="cate-image">
             <router-link :to="{name: 'Detail'}">
-                <img src="~@/assets/img/3.jpg" class="img-fluid" alt="bánh dứa" />
+                <img :src="img" class="img-fluid" />
             </router-link>
         </div>
         <div class="cate-text">

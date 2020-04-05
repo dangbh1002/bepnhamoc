@@ -41,7 +41,7 @@
         <template v-slot:table-colgroup="scope">
           <col width="45%">
           <col>
-          <col width="15%">
+          <col width="20%">
         </template>
 
         <template v-slot:cell(action)="{item}">
@@ -60,6 +60,9 @@
             <b-button variant="outline-secondary" @click="onDelete(item.childNickName, menu['.key'])">
               Delete
             </b-button>
+            <b-button variant="outline-success" @click="toogleDetail(item.childNickName, item.childName)">
+              Detail
+            </b-button>
           </template>
         </template>
 
@@ -71,9 +74,11 @@
         <template v-slot:cell(childNickName)="{item}">
           <div>{{item.childNickName}}</div>
         </template>
-
       </b-table>
     </div>
+
+    <hr>
+    <menu-post v-if="selectDetailPost" :select-detail="selectDetailPost" :name="selectDetailPostName"/>
 
   </div>
 
@@ -81,8 +86,12 @@
 
 <script>
 import {db} from '@/config/firebase'
+import MenuPost from '@/components/admin/menu/MenuPost'
 export default {
     name: 'MenuCategory',
+    components: {
+        MenuPost
+    },
     props: {
         selectDetail: {
             type: String,
@@ -112,7 +121,9 @@ export default {
             childNickNameUpdate: {},
             errorAdd: null,
             errorEmpty: null,
-            isEditing: {}
+            isEditing: {},
+            selectDetailPost: null,
+            selectDetailPostName: null
         }
     },
     firestore () {
@@ -215,6 +226,10 @@ export default {
             }).catch((error) => {
                 console.error('Error' + error)
             })
+        },
+        toogleDetail (key, name) {
+            this.selectDetailPost = !this.selectDetailPost || this.selectDetailPost !== key ? key : null
+            this.selectDetailPostName = name
         }
     }
 }
