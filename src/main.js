@@ -9,12 +9,15 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
 require('./assets/css/style.css')
 require('./assets/js/style.js')
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VueFirestore)
+Vue.use(CKEditor)
 
 Vue.config.productionTip = false
 

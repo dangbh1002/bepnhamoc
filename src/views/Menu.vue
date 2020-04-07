@@ -8,8 +8,14 @@
 
             <div class="column-right">
                 <div class="column-right-inner">
-                    <item v-for="(item, key) in list" :key="key"
-                      :content="item.content" :img="item.img" :title="item.title" />
+                    <item v-for="(item, key) in list"
+                      :key="key"
+                      :content="item.content"
+                      :img="item.img"
+                      :title="item.title"
+                      :type="item.menuId"
+                      :id="item.nickName"
+                    />
                     <div v-if="enableMore" class="read-more">
                         <a href="#" title="">Xem thêm <i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
                     </div>
@@ -39,8 +45,9 @@ export default {
     },
     firestore () {
         return {
-            post: db.collection('post').where('menu_id', '==', this.id),
-            list: db.collection('post').where('menu_id', '==', this.id).limit(4)
+            menu: db.collection('menu'),
+            post: db.collection('post').where('menuId', '==', this.id),
+            list: db.collection('post').where('menuId', '==', this.id).limit(4)
         }
     },
     data () {
@@ -61,6 +68,6 @@ export default {
         id () {
             this.$router.go(0)
         }
-    },
+    }
 }
 </script>

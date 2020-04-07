@@ -21,24 +21,30 @@
                                 <router-link v-if="!showMenu" :to="{name: 'Menu'}" :class="{'active': isMenu}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Menu -</router-link>
                                 <a v-else="" :class="{'active': isMenu}" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" @click="toogleMenuMenu">Menu -</a>
                                 <ul :class="{'show': showMenu && showMenuMenu}" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li class="nav-item">
-                                        <router-link :to="{name: 'Menu'}" class="dropdown-item">Bánh A</router-link>
-                                    </li>
-                                    <li class="nav-item">
-                                        <router-link :to="{name: 'Menu'}" class="dropdown-item">Bánh B</router-link>
-                                    </li>
+                                  <div v-for="(item, index) in list" :key="index">
+                                    <template v-if="Object.keys(item.child).length">
+                                      <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
+                                          <router-link :to="{name: 'MenuDetail', params: {id}}" class="dropdown-item">
+                                            {{ item.child[id] }}
+                                          </router-link>
+                                      </li>
+                                    </template>
+                                  </div>
                                 </ul>
                             </li>
                             <li class="nav-item">
                                 <router-link v-if="!showMenu" :to="{name: 'Recipe'}" :class="{'active': isRecipe}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Recipe -</router-link>
                                 <a v-else="" class="nav-link dropdown-toggle" role="button" @click="toogleMenuRecipe">Recipe -</a>
                                 <ul :class="{'show': showMenu && showMenuRecipe}" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li class="nav-item">
-                                        <router-link :to="{name: 'Recipe'}" class="dropdown-item">Bánh A</router-link>
-                                    </li>
-                                    <li class="nav-item">
-                                        <router-link :to="{name: 'Recipe'}" class="dropdown-item">Bánh B</router-link>
-                                    </li>
+                                  <div v-for="(item, index) in list" :key="index">
+                                    <template v-if="Object.keys(item.child).length">
+                                      <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
+                                        <router-link :to="{name: 'RecipeDetail', params: {id}}" class="dropdown-item">
+                                          {{ item.child[id] }}
+                                        </router-link>
+                                      </li>
+                                    </template>
+                                  </div>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -64,6 +70,7 @@
 </template>
 
 <script>
+import {db} from '@/config/firebase'
 export default {
     name: 'Header',
     props: {
@@ -88,7 +95,13 @@ export default {
         return {
             showMenu: false,
             showMenuMenu: false,
-            showMenuRecipe: false
+            showMenuRecipe: false,
+            list: []
+        }
+    },
+    firestore () {
+        return {
+            list: db.collection('menu')
         }
     },
     methods: {

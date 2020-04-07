@@ -2,14 +2,12 @@
 <div class="cate-item">
     <div class="cate-item-inner">
         <div class="cate-image">
-            <router-link :to="{name: 'Detail'}">
-                <img :src="img" class="img-fluid" />
-            </router-link>
+            <img :src="img" class="img-fluid" />
         </div>
         <div class="cate-text">
             <h3>{{ title }}</h3>
             <p>{{ content }}</p>
-            <a href="#" title="Xem thêm">Xem thêm</a>
+            <router-link :to="{name: 'Detail', params: {id, type}}">Xem thêm</router-link>
         </div>
     </div>
 </div>
@@ -28,6 +26,14 @@ export default {
             default: null
         },
         content: {
+            type: String,
+            default: null
+        },
+        id: {
+            type: String,
+            default: null
+        },
+        type: {
             type: String,
             default: null
         }

@@ -42,7 +42,7 @@ const router = new Router({
             component: Recipe
         },
         {
-            path: '/detail',
+            path: '/menu/:type/:id',
             name: 'Detail',
             component: Detail
         },

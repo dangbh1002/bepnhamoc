@@ -106,7 +106,7 @@ export default {
             }
             return false
         },
-        create (key) {
+        create () {
             this.errorEmpty = null
             if (!this.name) {
                 this.errorEmpty = 'Not empty'

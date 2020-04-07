@@ -2,47 +2,73 @@
   <div>
       <h4>{{name}}</h4>
 
-      <!--<b-row class="mt-5">-->
-        <!--<b-col sm="5">-->
-          <!--<b-row>-->
-            <!--<b-col sm="1">-->
-              <!--<label>Tên*</label>-->
-            <!--</b-col>-->
-            <!--<b-col sm="11">-->
-              <!--<b-form-input v-model="childName" :state="errorEmpty ? false : null" id="input-name" placeholder="Enter tên"></b-form-input>-->
-              <!--<b-form-invalid-feedback id="input-name-feedback">-->
-                <!--{{ errorEmpty }}-->
-              <!--</b-form-invalid-feedback>-->
-            <!--</b-col>-->
-          <!--</b-row>-->
-        <!--</b-col>-->
-        <!--<b-col sm="5">-->
-          <!--<b-row>-->
-            <!--<b-col sm="1">-->
-              <!--<label>Tên tắt</label>-->
-            <!--</b-col>-->
-            <!--<b-col sm="11">-->
-              <!--<b-form-input v-model="childNickName" disabled :state="errorAdd ? false : null" id="input-nickname" placeholder="Tên tắt"></b-form-input>-->
-              <!--<b-form-invalid-feedback id="input-nickname-feedback">-->
-                <!--{{ errorAdd }}-->
-              <!--</b-form-invalid-feedback>-->
-            <!--</b-col>-->
-          <!--</b-row>-->
-        <!--</b-col>-->
-        <!--<b-col sm="2">-->
-          <!--<b-button variant="primary" @click="createChild(menu['.key'], 'title')">-->
-            <!--Add-->
-          <!--</b-button>-->
-        <!--</b-col>-->
-      <!--</b-row>-->
+      <div class="mt-3">
+
+        <div role="group">
+          <label>Image:</label>
+          <div v-if="previewCreate" class="mb-3"><img :src="previewCreate" class="img-fluid" style="width:200px"/></div>
+          <div>
+            <input type="file" @change="previewImageCreate" accept="image/*" >
+          </div>
+        </div>
+
+        <div role="group" class="mt-3">
+          <label>Title:</label>
+          <b-form-input
+            id="input-title"
+            v-model="newTitle"
+            placeholder="Enter Title"
+            trim
+          ></b-form-input>
+          <!-- This will only be shown if the preceding input has an invalid state -->
+          <b-form-invalid-feedback id="input-title-feedback">
+            {{ errorEmpty }}
+          </b-form-invalid-feedback>
+        </div>
+
+        <div role="group" class="mt-3">
+          <label>Tên tắt:</label>
+          <b-form-input
+            id="input-nickname"
+            v-model="nickName"
+            :state="errorAdd ? false : null"
+            placeholder="Tên tắt"
+            disabled
+          ></b-form-input>
+          <!-- This will only be shown if the preceding input has an invalid state -->
+          <b-form-invalid-feedback id="input-nickname-feedback">
+            {{ errorAdd }}
+          </b-form-invalid-feedback>
+        </div>
+
+        <div role="group" class="mt-3">
+          <label>Content:</label>
+          <b-form-textarea
+            id="input-content"
+            v-model="newContent"
+            placeholder="Enter Content"
+            rows="5"
+          ></b-form-textarea>
+        </div>
+
+        {{ editorData }}
+
+        <div role="group" class="mt-3">
+          <label>Content Detail:</label>
+          <ckeditor v-model="editorData" :editor="ClassicEditor" ></ckeditor>
+        </div>
+
+        <b-button variant="primary mt-3" @click="create()">
+          Add
+        </b-button>
+      </div>
 
       <b-table :items="list" :fields="fields" class="mt-5">
         <template v-slot:table-colgroup="scope">
-          <col width="25%">
-          <col width="15%">
-          <col width="25%">
-          <col width="15%">
-          <col width="25%">
+          <col width="30%">
+          <col width="20%">
+          <col width="30%">
+          <col width="20%">
         </template>
 
         <template v-slot:cell(img)="{item}">
@@ -102,6 +128,15 @@
           </template>
         </template>
 
+        <template v-slot:cell(action)="{item}">
+            <b-button variant="outline-secondary" @click="onDelete(item['.key'])">
+              Delete
+            </b-button>
+            <b-button variant="outline-success" @click="toogleDetail(item['.key'])">
+              Detail
+            </b-button>
+        </template>
+
       </b-table>
 
   </div>
@@ -110,8 +145,9 @@
 
 <script>
 import {db, firestorage} from '@/config/firebase'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 export default {
-    name: 'MenuCategory',
+    name: 'MenuPost',
     props: {
         selectDetail: {
             type: String,
@@ -120,46 +156,111 @@ export default {
         name: {
             type: String,
             default: null
-        }
+        },
+      data: {
+        type: [],
+        default: null
+      }
     },
     data () {
         return {
+            ClassicEditor,
             fields: [
                 {
                     key: 'img',
                     label: 'Image'
                 },
                 'title',
+                {
+                    key: 'nickName',
+                    label: 'Tên tắt'
+                },
                 'content',
-                'menu_id',
                 {
                     key: 'action',
                     label: ''
                 }
             ],
+            newTitle: null,
+            newContent: null,
+            nickName: null,
+            previewCreate: null,
+            imageDataCreate: null,
+            errorAdd: null,
+            editorData: null,
             list: [],
             imageData: {},
             preview: {},
             uploadValue: {},
             title: {},
             content: {},
-            isEditing: {title: {}, content: {}}
+            isEditing: {title: {}, content: {}},
+            errorEmpty: null
         }
     },
     firestore () {
         return {
             post: db.collection('post'),
-            list: db.collection('post').where('menu_id', '==', this.selectDetail).limit(4)
+            list: db.collection('post').where('menuId', '==', this.selectDetail).limit(4)
+        }
+    },
+    watch: {
+        newTitle (newVal) {
+            this.nickName = this.convertName(newVal)
         }
     },
     methods: {
+        convertName (str) {
+            return str
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D')
+                .replace(/ /g, '-')
+                .toLowerCase()
+        },
         getItem (key) {
             return this.list.filter((item) => item['.key'] === key)[0]
+        },
+        previewImageCreate (event) {
+            this.imageDataCreate = event.target.files[0]
+            this.previewCreate = URL.createObjectURL(this.imageDataCreate)
+            console.log(this.previewCreate)
+        },
+        create () {
+            this.errorAdd = null
+            const filter = this.list.filter((item) => item.nickName === this.nickName)
+            if (filter && filter.length) {
+                this.errorAdd = 'Đã tồn tại'
+                return
+            }
+
+            // upload image
+            const imgName = `post/${this.selectDetail}/${new Date().getTime()}-${this.imageDataCreate.name}`
+            const storageRef = firestorage.ref(imgName).put(this.imageDataCreate)
+            storageRef.on(`state_changed`, snapshot => {}, error => { console.log(error.message) },
+                () => {
+                    storageRef.snapshot.ref.getDownloadURL().then((url) => {
+                        this.$firestore.post.add({
+                            img: url,
+                            imgName,
+                            menuId: this.selectDetail,
+                            title: this.newTitle,
+                            content: this.newContent,
+                            nickName: this.nickName,
+                            createdAt: new Date().getTime()
+                        }).then(() => {
+                            console.log('Document successfully updated!')
+                        }).catch((error) => {
+                            console.error('Error' + error)
+                        })
+                    })
+                }
+            )
         },
         previewImage (event, key) {
             this.uploadValue[key] = 0
             this.imageData = {...this.imageData, [key]: event.target.files[0]}
-            console.log(this.imageData)
             this.preview[key] = URL.createObjectURL(this.imageData[key])
         },
         onUpload (key) {
@@ -215,6 +316,20 @@ export default {
             }).catch((error) => {
                 console.error('Error' + error)
             })
+        },
+        onDelete (key) {
+            const r = confirm('Do you want to delete?')
+            if (r !== true) {
+                return
+            }
+            this.$firestore.post.doc(key).delete().then(() => {
+                console.log('Document successfully delete!')
+            }).catch((error) => {
+                console.error('Error' + error)
+            })
+        },
+        toogleDetail (key) {
+
         }
     }
 }

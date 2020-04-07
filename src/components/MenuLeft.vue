@@ -22,7 +22,7 @@ export default {
     props: {
         isRecipe: {
             type: Boolean,
-            defaul: false
+            default: false
         }
     },
     data () {
@@ -41,13 +41,13 @@ export default {
             const selected = this.selected || 'banh-a'
             const filter = this.list.filter((item) => item.child[selected])
             arr.push(selected)
-            if (filter) {
+            if (filter && filter.length) {
                 arr.push(filter[0]['.key'])
             }
             return arr
         },
         selected () {
-            return this.$route.params.id || null
+            return this.$route.params.type || this.$route.params.id || null
         }
     },
     methods: {
