@@ -6,6 +6,12 @@ import Recipe from '@/views/Recipe'
 import Detail from '@/views/Detail'
 import Contact from '@/views/ContactUs'
 import Admin from '@/views/Admin'
+import AdminSlide from '@/views/admin/Slide'
+import AdminContent from '@/views/admin/Content'
+import AdminMenu from '@/views/admin/MenuLeft'
+import AdminMenuCategory from '@/views/admin/menu/MenuCategory'
+import AdminMenuPost from '@/views/admin/menu/MenuPost'
+import AdminContact from '@/views/admin/Contact'
 // import Test from '@/views/Test'
 import Login from '@/views/Login'
 
@@ -25,6 +31,14 @@ const router = new Router({
             path: '/menu',
             name: 'Menu',
             component: Menu
+            // children: [
+            //     {
+            //         path: '/:id',
+            //         name: 'MenuDetail',
+            //         component: Menu
+            //     }
+            //
+            // ]
         },
         {
             path: '/menu/:id',
@@ -57,7 +71,39 @@ const router = new Router({
             component: Admin,
             meta: {
                 requiresAuth: true
-            }
+            },
+            children: [
+                {
+                    path: 'slide',
+                    name: 'Slide',
+                    component: AdminSlide
+                },
+                {
+                    path: 'content',
+                    name: 'Content',
+                    component: AdminContent
+                },
+                {
+                    path: 'menu-left',
+                    name: 'AdminMenu',
+                    component: AdminMenu
+                },
+                {
+                    path: 'contact',
+                    name: 'AdminContact',
+                    component: AdminContact
+                },
+                {
+                    path: 'menu/category/:id',
+                    name: 'AdminMenuCategory',
+                    component: AdminMenuCategory
+                },
+                {
+                    path: 'menu/post/:id',
+                    name: 'AdminMenuPost',
+                    component: AdminMenuPost
+                }
+            ]
         },
         {
             path: '/login',

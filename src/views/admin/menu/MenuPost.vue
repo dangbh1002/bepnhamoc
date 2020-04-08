@@ -51,8 +51,6 @@
           ></b-form-textarea>
         </div>
 
-        {{ editorData }}
-
         <div role="group" class="mt-3">
           <label>Content Detail:</label>
           <ckeditor v-model="editorData" :editor="ClassicEditor" ></ckeditor>
@@ -63,12 +61,14 @@
         </b-button>
       </div>
 
-      <b-table :items="list" :fields="fields" class="mt-5">
+      <b-table :items="listTemp" :fields="fields" class="mt-5">
         <template v-slot:table-colgroup="scope">
-          <col width="30%">
           <col width="20%">
+          <col>
+          <col>
           <col width="30%">
-          <col width="20%">
+          <col width="40%">
+          <col width="10%">
         </template>
 
         <template v-slot:cell(img)="{item}">
@@ -132,9 +132,6 @@
             <b-button variant="outline-secondary" @click="onDelete(item['.key'])">
               Delete
             </b-button>
-            <b-button variant="outline-success" @click="toogleDetail(item['.key'])">
-              Detail
-            </b-button>
         </template>
 
       </b-table>
@@ -148,16 +145,6 @@ import {db, firestorage} from '@/config/firebase'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 export default {
     name: 'MenuPost',
-    props: {
-        selectDetail: {
-            type: String,
-            default: null
-        },
-        name: {
-            type: String,
-            default: null
-        },
-    },
     data () {
         return {
             ClassicEditor,
@@ -172,6 +159,7 @@ export default {
                     label: 'Tên tắt'
                 },
                 'content',
+                'editorData',
                 {
                     key: 'action',
                     label: ''
@@ -191,7 +179,8 @@ export default {
             title: {},
             content: {},
             isEditing: {title: {}, content: {}},
-            errorEmpty: null
+            errorEmpty: null,
+            listTemp: []
         }
     },
     firestore () {
@@ -200,12 +189,37 @@ export default {
             list: db.collection('post').where('menuId', '==', this.selectDetail).limit(4)
         }
     },
+    computed: {
+        selectDetail () {
+            return this.$route.params.id || 'banh-a'
+        },
+        name () {
+            return this.$route.params.name || 'banh-a'
+        }
+    },
     watch: {
+        '$route.params.id': 'getPost',
         newTitle (newVal) {
             this.nickName = this.convertName(newVal)
         }
     },
+    created () {
+        this.listTemp = this.list
+    },
     methods: {
+        getPost () {
+            db
+                .collection('post')
+                .where('menuId', '==', this.selectDetail).limit(4)
+                .get()
+                .then(snap => {
+                    const testCollection = []
+                    snap.forEach(doc => {
+                        testCollection.push({...doc.data(), '.key': doc.id})
+                    })
+                    this.listTemp = testCollection
+                })
+        },
         convertName (str) {
             return str
                 .normalize('NFD')
@@ -244,8 +258,12 @@ export default {
                             title: this.newTitle,
                             content: this.newContent,
                             nickName: this.nickName,
+                            editorData: this.editorData,
                             createdAt: new Date().getTime()
                         }).then(() => {
+                            this.newTitle = null
+                            this.nickName = null
+                            this.editorData = null
                             console.log('Document successfully updated!')
                         }).catch((error) => {
                             console.error('Error' + error)

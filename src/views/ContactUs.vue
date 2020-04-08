@@ -4,8 +4,6 @@
 
     <main>
         <div class="category-content">
-            <menu-left />
-
             <div class="column-right">
                 <div class="column-right-inner">
                     <div class="title-block">
@@ -71,3 +69,9 @@ export default {
     methods: {}
 }
 </script>
+
+<style scoped>
+  .category-content .column-right {
+    width: 100%;
+  }
+</style>
