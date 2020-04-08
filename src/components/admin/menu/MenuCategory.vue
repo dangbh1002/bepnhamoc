@@ -66,6 +66,7 @@
           </template>
         </template>
 
+
         <template v-slot:cell(childName)="{item}">
           <b-form-input v-if="childNameUpdate[menu['.key']] && isEditing[menu['.key']] && isEditing[menu['.key']][item.childNickName]" v-model="childNameUpdate[menu['.key']][item.childNickName]"/>
           <div v-else="">{{item.childName}}</div>
@@ -191,13 +192,16 @@ export default {
             })
         },
         onEdit (key, type) {
+            console.log(key, type)
             const editType = this.isEditing[type] || {}
             this.isEditing = {...this.isEditing, [type]: {...editType, [key]: true}}
             this.childNameUpdate[type] = {...this.childNameUpdate[type], [key]: this.getChild(type)[key]}
             this.childNickNameUpdate[type] = {...this.childNickNameUpdate[type], [key]: key}
+            console.log(this.childNameUpdate)
+            console.log(this.childNickNameUpdate)
         },
         onCancel (key, type) {
-            this.isEditing[type] = {...this.isEditing[type], [key]: false}
+            this.isEditing[type] && delete this.isEditing[type][key]
             this.childNameUpdate[type] && delete this.childNameUpdate[type][key]
             this.childNickNameUpdate[type] && delete this.childNickNameUpdate[type][key]
         },

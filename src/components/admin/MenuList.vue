@@ -30,11 +30,11 @@
       </template>
 
       <template v-slot:cell(action)="{item}">
-        <template v-if="isEditing[isEditing['.key']]">
+        <template v-if="isEditing[item['.key']]">
           <b-button variant="primary" @click="onUpdate(item['.key'])">
             Save
           </b-button>
-          <b-button variant="secondary" @click="onCancel(item.menu['.key'])">
+          <b-button variant="secondary" @click="onCancel(item['.key'])">
             Cancel
           </b-button>
         </template>
@@ -99,13 +99,6 @@ export default {
         getItem (key) {
             return this.list.filter((item) => item['.key'] === key)[0]
         },
-        validateNickName (key, value) {
-            const listNickName = Object.keys(this.getChild(key))
-            if (listNickName.includes(value)) {
-                return 'Đã tồn tại'
-            }
-            return false
-        },
         create () {
             this.errorEmpty = null
             if (!this.name) {
@@ -123,16 +116,12 @@ export default {
                 console.error('Error' + error)
             })
         },
-        onEdit (key, type) {
-            const editType = this.isEditing[type] || {}
-            this.isEditing = {...this.isEditing, [type]: {...editType, [key]: true}}
-            this.childNameUpdate[type] = {...this.childNameUpdate[type], [key]: this.getChild(type)[key]}
-            this.childNickNameUpdate[type] = {...this.childNickNameUpdate[type], [key]: key}
+        onEdit (key) {
+            this.isEditing = {...this.isEditing, [key]: true}
+            this.nameUpdate = {...this.nameUpdate, [key]: this.getItem(key).name}
         },
-        onCancel (key, type) {
-            this.isEditing[type] = {...this.isEditing[type], [key]: false}
-            this.childNameUpdate[type] && delete this.childNameUpdate[type][key]
-            this.childNickNameUpdate[type] && delete this.childNickNameUpdate[type][key]
+        onCancel (key) {
+            this.isEditing = {...this.isEditing, [key]: false}
         },
         onDelete (key) {
             const r = confirm('Do you want to delete?')
@@ -145,11 +134,11 @@ export default {
                 console.error('Error' + error)
             })
         },
-        onUpdate (key, type) {
-            this.$firestore.list.doc(type).update({
-                child: {...this.getChild(type), [key]: this.childNameUpdate[type][key]}
+        onUpdate (key) {
+            this.$firestore.list.doc(key).update({
+                name: this.nameUpdate[key]
             }).then(() => {
-                this.isEditing[type] = {...this.isEditing[type], [key]: false}
+                this.isEditing = {...this.isEditing, [key]: false}
                 console.log('Document successfully updated!')
             }).catch((error) => {
                 console.error('Error' + error)
