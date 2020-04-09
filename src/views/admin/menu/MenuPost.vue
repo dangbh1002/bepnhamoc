@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
       <h4>{{name}}</h4>
 
@@ -53,7 +53,7 @@
 
         <div role="group" class="mt-3">
           <label>Content Detail:</label>
-          <ckeditor v-model="editorData" :editor="ClassicEditor" ></ckeditor>
+          <vue-editor v-model="newEditorData" useCustomImageHandler @image-added="handleImageAdded"></vue-editor>
         </div>
 
         <b-button variant="primary mt-3" @click="create()">
@@ -66,8 +66,8 @@
           <col width="20%">
           <col>
           <col>
-          <col width="30%">
           <col width="40%">
+          <col width="15%">
           <col width="10%">
         </template>
 
@@ -128,8 +128,28 @@
           </template>
         </template>
 
+        <template v-slot:cell(editorData)="row">
+          <b-button variant="outline-primary" @click="row.toggleDetails(); setModeEdit(row.item['.key'], 'editorData')">
+            {{ row.detailsShowing ? 'Hide' : 'Show Edit'}}
+          </b-button>
+        </template>
+
+        <template v-slot:row-details="row">
+          <h3>Edit content detail</h3>
+          <vue-editor
+            v-model="editorData[row.item['.key']]"
+            useCustomImageHandler
+            @image-added="handleImageAdded"></vue-editor>
+          <b-button variant="primary mt-3" @click="row.toggleDetails(); updateData(row.item['.key'], 'editorData')">
+            Save
+          </b-button>
+          <b-button variant="secondary mt-3" @click="row.toggleDetails(); cancelEdit(row.item['.key'], 'editorData')">
+            Cancel
+          </b-button>
+        </template>
+
         <template v-slot:cell(action)="{item}">
-            <b-button variant="outline-secondary" @click="onDelete(item['.key'])">
+            <b-button variant="outline-secondary" @click="onDelete(row.item['.key'])">
               Delete
             </b-button>
         </template>
@@ -142,12 +162,17 @@
 
 <script>
 import {db, firestorage} from '@/config/firebase'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { VueEditor } from 'vue2-editor'
+
 export default {
     name: 'MenuPost',
+    components: {
+        VueEditor
+    },
     data () {
         return {
-            ClassicEditor,
+            editorConfig: {
+            },
             fields: [
                 {
                     key: 'img',
@@ -171,14 +196,14 @@ export default {
             previewCreate: null,
             imageDataCreate: null,
             errorAdd: null,
-            editorData: null,
+            newEditorData: null,
             list: [],
             imageData: {},
             preview: {},
             uploadValue: {},
             title: {},
             content: {},
-            isEditing: {title: {}, content: {}},
+            isEditing: {title: {}, content: {}, editorData: {}},
             errorEmpty: null,
             listTemp: []
         }
@@ -221,6 +246,9 @@ export default {
                 })
         },
         convertName (str) {
+            if (!str) {
+                return null
+            }
             return str
                 .normalize('NFD')
                 .replace(/[\u0300-\u036f]/g, '')
@@ -235,7 +263,6 @@ export default {
         previewImageCreate (event) {
             this.imageDataCreate = event.target.files[0]
             this.previewCreate = URL.createObjectURL(this.imageDataCreate)
-            console.log(this.previewCreate)
         },
         create () {
             this.errorAdd = null
@@ -258,12 +285,14 @@ export default {
                             title: this.newTitle,
                             content: this.newContent,
                             nickName: this.nickName,
-                            editorData: this.editorData,
+                            editorData: this.newEditorData,
                             createdAt: new Date().getTime()
                         }).then(() => {
                             this.newTitle = null
                             this.nickName = null
-                            this.editorData = null
+                            this.newContent = null
+                            this.newEditorData = null
+                            this.getPost()
                             console.log('Document successfully updated!')
                         }).catch((error) => {
                             console.error('Error' + error)
@@ -314,6 +343,7 @@ export default {
                 })
         },
         setModeEdit (key, type) {
+            console.log(key, type)
             this.isEditing[type] = {...this.isEditing[type], [key]: true}
             this[type] = {...this[type], [key]: this.getItem(key)[type]}
         },
@@ -342,9 +372,19 @@ export default {
                 console.error('Error' + error)
             })
         },
-        toogleDetail (key) {
-
-        }
+        handleImageAdded: function (file, Editor, cursorLocation, resetUploader) {
+            // upload image
+            const imgName = `post/${this.selectDetail}/${new Date().getTime()}-${file.name}`
+            const storageRef = firestorage.ref(imgName).put(file)
+            storageRef.on(`state_changed`, snapshot => {}, error => { console.log(error.message) },
+                () => {
+                    storageRef.snapshot.ref.getDownloadURL().then((url) => {
+                        Editor.insertEmbed(cursorLocation, 'image', url)
+                        resetUploader()
+                    })
+                }
+            )
+        },
     }
 }
 </script>

@@ -12,6 +12,7 @@ import AdminMenu from '@/views/admin/MenuLeft'
 import AdminMenuCategory from '@/views/admin/menu/MenuCategory'
 import AdminMenuPost from '@/views/admin/menu/MenuPost'
 import AdminContact from '@/views/admin/Contact'
+import AdminRecipe from '@/views/admin/Recipe'
 // import Test from '@/views/Test'
 import Login from '@/views/Login'
 
@@ -31,14 +32,6 @@ const router = new Router({
             path: '/menu',
             name: 'Menu',
             component: Menu
-            // children: [
-            //     {
-            //         path: '/:id',
-            //         name: 'MenuDetail',
-            //         component: Menu
-            //     }
-            //
-            // ]
         },
         {
             path: '/menu/:id',
@@ -56,7 +49,7 @@ const router = new Router({
             component: Recipe
         },
         {
-            path: '/menu/:type/:id',
+            path: '/detail/:type/:id',
             name: 'Detail',
             component: Detail
         },
@@ -102,6 +95,11 @@ const router = new Router({
                     path: 'menu/post/:id',
                     name: 'AdminMenuPost',
                     component: AdminMenuPost
+                },
+                {
+                    path: 'menu/recipe/:id',
+                    name: 'AdminRecipe',
+                    component: AdminRecipe
                 }
             ]
         },

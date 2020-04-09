@@ -15,6 +15,7 @@
                       :title="item.title"
                       :type="item.menuId"
                       :id="item.nickName"
+                      menu="menu"
                     />
                     <div v-if="enableMore" class="read-more">
                         <a href="#" title="">Xem thêm <i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
@@ -47,7 +48,7 @@ export default {
         return {
             menu: db.collection('menu'),
             post: db.collection('post').where('menuId', '==', this.id),
-            list: db.collection('post').where('menuId', '==', this.id).limit(4)
+            list: db.collection('post').where('menuId', '==', this.id)
         }
     },
     data () {

@@ -68,30 +68,33 @@
               </li>
             </ul>
 
-
             <hr style="border-color: #454545;">
             <ul>
               <li class="header-menu">
                 <span>Recipe</span>
               </li>
 
-              <!--<li v-for="(item, index) in listByOrder" :key="index">-->
-                <!--<router-link :to="{name: 'AdminMenuCategory', params: {id: item['.key']}}">-->
-                  <!--<i class="fa fa-circle"></i>-->
-                  <!--<span>{{ item.name }}</span>-->
-                <!--</router-link>-->
-              <!--</li>-->
+              <li v-for="(item, index) in listByOrder" :key="index">
+                <div v-if="Object.keys(item.child).length">
+                  <div v-for="(id, k) in Object.keys(item.child)" :key="k">
+                    <router-link :to="{name: 'AdminRecipe', params: {id, name: item.child[id]}}">
+                      <i class="fa fa-circle"></i>
+                      {{ item.child[id] }}
+                    </router-link>
+                  </div>
+                </div>
+              </li>
             </ul>
 
-            <!--<hr style="border-color: #454545;">-->
-            <!--<ul>-->
-              <!--<li>-->
-                <!--<router-link to="/admin/contact">-->
-                  <!--<i class="fa fa-address-card"></i>-->
-                  <!--<span>Contact</span>-->
-                <!--</router-link>-->
-              <!--</li>-->
-            <!--</ul>-->
+            <hr style="border-color: #454545;">
+            <ul>
+              <li>
+                <router-link to="/admin/contact">
+                  <i class="fa fa-address-card"></i>
+                  <span>Contact</span>
+                </router-link>
+              </li>
+            </ul>
 
             <hr style="border-color: #454545;">
             <ul>

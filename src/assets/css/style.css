@@ -82,6 +82,10 @@ body {
   margin: auto;
 }
 
+main {
+  min-height: 100vh;
+}
+
 a {
   transition: all 0.3s;
   color: #3b2314;
@@ -324,6 +328,7 @@ input:focus {
   float: left;
   background: #f0eeed;
   padding: 60px 15px 0 60px;
+  height: 100vh;
 }
 .category-content .column-left ul li a {
   font-family: 'SVN-Segoe-UI-Light';
@@ -332,23 +337,28 @@ input:focus {
   display: flex;
   align-items: center;
   padding: 7px 0;
+  background: transparent;
 }
 .category-content .column-left ul li a:before {
   content: '';
   display: block;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   background-image: url('../img/Menu-03.png');
+  background-size: 10px auto;
   margin-right: 5px;
+  margin-bottom: 2px;
   float: left;
 }
 .category-content .column-left ul li a.selected:before {
   content: '';
   display: block;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   background-image: url('../img/Menu-02.png');
+  background-size: 10px auto;
   margin-right: 5px;
+  margin-bottom: 2px;
   float: left;
 }
 .category-content .column-left ul li a:hover {
@@ -602,7 +612,8 @@ input:focus {
     top: 74px;
   }
   .banner {
-    display: none;
+    margin-top: 40px;
+    /*display: none;*/
   }
   .main-content .main-content-inner {
     display: inherit;
@@ -731,8 +742,8 @@ input:focus {
   .header .navbar-expand-lg .navbar-nav .nav-link:before {
     content: '';
     background-image: url('../img/square-empty.png');
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     display: block;
     background-size: 100%;
     margin-right: 10px;

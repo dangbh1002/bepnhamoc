@@ -31,13 +31,13 @@
           </b-row>
         </b-col>
         <b-col sm="2">
-          <b-button variant="primary" @click="createChild(menu['.key'], 'title')">
+          <b-button variant="primary" @click="createChild(selectDetail)">
             Add
           </b-button>
         </b-col>
       </b-row>
 
-      <b-table :items="getChildTable(menu['.key'])" :fields="fieldsChild" class="mt-5">
+      <b-table :items="getChildTable(selectDetail)" :fields="fieldsChild" class="mt-5">
         <template v-slot:table-colgroup="scope">
           <col width="45%">
           <col>
@@ -45,19 +45,19 @@
         </template>
 
         <template v-slot:cell(action)="{item}">
-          <template v-if="isEditing[menu['.key']] && isEditing[menu['.key']][item.childNickName]">
-            <b-button variant="primary" @click="onUpdate(item.childNickName, menu['.key'])">
+          <template v-if="isEditing[item.childNickName]">
+            <b-button variant="primary" @click="onUpdate(item.childNickName)">
               Save
             </b-button>
-            <b-button variant="secondary" @click="onCancel(item.childNickName, menu['.key'])">
+            <b-button variant="secondary" @click="onCancel(item.childNickName)">
               Cancel
             </b-button>
           </template>
           <template v-else="">
-            <b-button variant="outline-primary" @click="onEdit(item.childNickName, menu['.key'])">
+            <b-button variant="outline-primary" @click="onEdit(item.childNickName)">
               Edit
             </b-button>
-            <b-button variant="outline-secondary" @click="onDelete(item.childNickName, menu['.key'])">
+            <b-button variant="outline-secondary" @click="onDelete(item.childNickName)">
               Delete
             </b-button>
             <b-button variant="outline-success" @click="$router.push({name: 'AdminMenuPost', params: {id: item.childNickName, name: item.childName}})">
@@ -70,7 +70,7 @@
         </template>
 
         <template v-slot:cell(childName)="{item}">
-          <b-form-input v-if="childNameUpdate[menu['.key']] && isEditing[menu['.key']] && isEditing[menu['.key']][item.childNickName]" v-model="childNameUpdate[menu['.key']][item.childNickName]"/>
+          <b-form-input v-if="isEditing[item.childNickName]" v-model="childNameUpdate[item.childNickName]"/>
           <div v-else="">{{item.childName}}</div>
         </template>
 
@@ -111,9 +111,7 @@ export default {
             childNickNameUpdate: {},
             errorAdd: null,
             errorEmpty: null,
-            isEditing: {},
-            selectDetailPost: null,
-            selectDetailPostName: null
+            isEditing: {}
         }
     },
     computed: {
@@ -185,49 +183,41 @@ export default {
                 console.error('Error' + error)
             })
         },
-        onEdit (key, type) {
-            console.log(key, type)
-            const editType = this.isEditing[type] || {}
-            this.isEditing = {...this.isEditing, [type]: {...editType, [key]: true}}
-            this.childNameUpdate[type] = {...this.childNameUpdate[type], [key]: this.getChild(type)[key]}
-            this.childNickNameUpdate[type] = {...this.childNickNameUpdate[type], [key]: key}
-            console.log(this.childNameUpdate)
-            console.log(this.childNickNameUpdate)
+        onEdit (key) {
+            this.isEditing = {...this.isEditing, [key]: true}
+            this.childNameUpdate = {...this.childNameUpdate, [key]: this.getChild(this.selectDetail)[key]}
+            this.childNickNameUpdate = {...this.childNickNameUpdate, [key]: key}
         },
-        onCancel (key, type) {
-            this.isEditing[type] && delete this.isEditing[type][key]
-            this.childNameUpdate[type] && delete this.childNameUpdate[type][key]
-            this.childNickNameUpdate[type] && delete this.childNickNameUpdate[type][key]
+        onCancel (key) {
+            this.isEditing = {...this.isEditing, [key]: false}
+            this.childNameUpdate = {...this.childNameUpdate, [key]: null}
+            this.childNickNameUpdate = {...this.childNickNameUpdate, [key]: null}
         },
-        onDelete (key, type) {
+        onDelete (key) {
             const r = confirm('Do you want to delete?')
             if (r !== true) {
                 return
             }
-            const child = this.getChild(type)
+            const child = this.getChild(this.selectDetail)
             delete child[key]
-            this.$firestore.list.doc(type).update({
+            this.$firestore.list.doc(this.selectDetail).update({
                 child
             }).then(() => {
-                this.isEditing[type] = {...this.isEditing[type], [key]: false}
+                this.isEditing = {...this.isEditing, [key]: false}
                 console.log('Document successfully delete!')
             }).catch((error) => {
                 console.error('Error' + error)
             })
         },
-        onUpdate (key, type) {
-            this.$firestore.list.doc(type).update({
-                child: {...this.getChild(type), [key]: this.childNameUpdate[type][key]}
+        onUpdate (key) {
+            this.$firestore.list.doc(this.selectDetail).update({
+                child: {...this.getChild(this.selectDetail), [key]: this.childNameUpdate[key]}
             }).then(() => {
-                this.isEditing[type] = {...this.isEditing[type], [key]: false}
+                this.isEditing = {...this.isEditing, [key]: false}
                 console.log('Document successfully updated!')
             }).catch((error) => {
                 console.error('Error' + error)
             })
-        },
-        toogleDetail (key, name) {
-            this.selectDetailPost = !this.selectDetailPost || this.selectDetailPost !== key ? key : null
-            this.selectDetailPostName = name
         }
     }
 }

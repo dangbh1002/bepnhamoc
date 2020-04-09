@@ -9,8 +9,6 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-import CKEditor from '@ckeditor/ckeditor5-vue'
-
 require('./assets/css/style.css')
 require('./assets/css/admin.css')
 
@@ -20,7 +18,6 @@ Vue.use(VueFirestore)
 // Vue.use(VueFirestore, {
 //     key: 'id' // the name of the property. Default is '.key'.
 // })
-Vue.use(CKEditor)
 
 Vue.config.productionTip = false
 

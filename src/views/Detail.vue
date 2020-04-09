@@ -1,6 +1,6 @@
 <template>
 <div>
-    <m-header :is-menu="true" />
+    <m-header :is-menu="menu" :is-recipe="!menu" />
 
     <main>
         <div class="category-content">
@@ -49,10 +49,13 @@ export default {
     },
     firestore () {
         return {
-            list: db.collection('post').where('nickName', '==', this.$route.params.id)
+            list: db.collection(this.menu).where('nickName', '==', this.$route.params.id)
         }
     },
     computed: {
+        menu () {
+            return this.$route.params.menu
+        },
         post () {
             return this.list.length ? this.list[0] : {}
         }

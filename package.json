@@ -11,8 +11,6 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^18.0.0",
-    "@ckeditor/ckeditor5-vue": "^1.0.1",
     "@firebase/app": "^0.6.0",
     "@firebase/firestore": "^1.13.0",
     "bootstrap": "^4.4.1",
@@ -21,7 +19,8 @@
     "jquery": "^3.4.1",
     "vue": "^2.5.2",
     "vue-firestore": "^0.3.30",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue2-editor": "^2.10.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

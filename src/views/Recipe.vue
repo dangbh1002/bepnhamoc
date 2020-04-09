@@ -1,49 +1,74 @@
 <template>
-<div>
+  <div>
     <m-header :is-recipe="true"/>
 
     <main>
-        <div class="category-content">
-            <menu-left :is-recipe="true"/>
+      <div class="category-content">
+        <menu-left :is-recipe="true"/>
 
-            <div class="column-right">
-                <div class="column-right-inner">
-                    <item :content="content" img="2.jpg" title="Bánh dứa taiwan" />
-                    <item :content="content" img="3.jpg" title="Bánh dứa taiwan" />
-                    <item :content="content" img="1.jpg" title="Bánh dứa taiwan" />
-                    <item :content="content" img="2.jpg" title="Bánh dứa taiwan" />
-                    <div class="read-more">
-                        <a href="#" title="">Xem thêm <i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
-                    </div>
-                </div>
+        <div class="column-right">
+          <div class="column-right-inner">
+            <item v-for="(item, key) in list"
+                  :key="key"
+                  :content="item.content"
+                  :img="item.img"
+                  :title="item.title"
+                  :type="item.menuId"
+                  :id="item.nickName"
+                  menu="recipe"
+            />
+            <div v-if="enableMore" class="read-more">
+              <a href="#" title="">Xem thêm <i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
             </div>
+          </div>
         </div>
+      </div>
     </main>
 
     <m-footer />
-</div>
+  </div>
 </template>
 
 <script>
+import {db} from '@/config/firebase'
 import MHeader from '@/components/Header'
 import MFooter from '@/components/Footer'
 import MenuLeft from '@/components/MenuLeft'
 import Item from '@/components/detail/Item'
 
 export default {
-    name: 'Recipe',
+    name: 'Menu',
     components: {
         MHeader,
         MFooter,
         MenuLeft,
         Item
     },
-    data () {
+    firestore () {
         return {
-            content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet blandit elit. Nam rutrum dictum pretium. Donec arcu velit, feugiat et aliquam vel, vulputate quis sem. Vestibulum sit amet lobortis diam. Integer lacinia nulla at nisl tristique porttitor. Aenean commodo lacus et erat elementum, eu facilisis enim efficitur.'
+            menu: db.collection('menu'),
+            post: db.collection('recipe').where('menuId', '==', this.id),
+            list: db.collection('recipe').where('menuId', '==', this.id)
         }
     },
-    created () {},
-    methods: {}
+    data () {
+        return {
+            post: [],
+            list: []
+        }
+    },
+    computed: {
+        enableMore () {
+            return this.post && this.post.length > 4
+        },
+        id () {
+            return this.$route.params.id || 'banh-a'
+        }
+    },
+    watch: {
+        id () {
+            this.$router.go(0)
+        }
+    }
 }
 </script>

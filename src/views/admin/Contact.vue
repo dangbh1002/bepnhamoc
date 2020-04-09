@@ -3,10 +3,12 @@
       <h4>Contact</h4>
 
       <div class="mt-3">
-        <ckeditor v-model="editorData" :editor="ClassicEditor" ></ckeditor>
-
-        <b-button variant="primary mt-3" @click="create()">
-          Add
+        <vue-editor
+          v-model="editorData"
+          useCustomImageHandler
+          @image-added="handleImageAdded"></vue-editor>
+        <b-button variant="primary mt-3" @click="updateData">
+          Save
         </b-button>
       </div>
   </div>
@@ -14,37 +16,55 @@
 </template>
 
 <script>
-import {db} from '@/config/firebase'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import {db, firestorage} from '@/config/firebase'
+import { VueEditor } from 'vue2-editor'
 export default {
     name: 'Contact',
+    components: {
+        VueEditor
+    },
     data () {
         return {
-            ClassicEditor,
-            editorData: null
+            contact: {},
+            editorData: null,
+            key: 'UW7ntmqDoZjVBaBeQBN2'
         }
     },
-    created () {
-        let contact = {}
-        db.collection('contact').get().then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                contact = doc.data()
-                console.log(contact.editorData)
-                this.editorData = contact.editorData
-            })
-        })
+    firestore () {
+        return {
+            contactTable: db.collection('contact'),
+            contact: db.collection('contact').doc(this.key)
+        }
+    },
+    watch: {
+        contact (newVal) {
+            if (newVal.editorData) {
+                this.editorData = this.contact.editorData
+            }
+        }
     },
     methods: {
-        create () {
-            this.$firestore.contact.add({
-                editorData: this.editorData,
-                createdAt: new Date().getTime()
+        updateData () {
+            this.$firestore.contactTable.doc(this.key).update({
+                editorData: this.editorData
             }).then(() => {
-                this.editorData = null
                 console.log('Document successfully updated!')
             }).catch((error) => {
                 console.error('Error' + error)
             })
+        },
+        handleImageAdded: function (file, Editor, cursorLocation, resetUploader) {
+        // upload image
+            const imgName = `contact/${this.selectDetail}/${new Date().getTime()}-${file.name}`
+            const storageRef = firestorage.ref(imgName).put(file)
+            storageRef.on(`state_changed`, snapshot => {}, error => { console.log(error.message) },
+                () => {
+                    storageRef.snapshot.ref.getDownloadURL().then((url) => {
+                        Editor.insertEmbed(cursorLocation, 'image', url)
+                        resetUploader()
+                    })
+                }
+            )
         }
     }
 }

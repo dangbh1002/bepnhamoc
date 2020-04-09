@@ -7,7 +7,7 @@
         <div class="cate-text">
             <h3>{{ title }}</h3>
             <p>{{ content }}</p>
-            <router-link :to="{name: 'Detail', params: {id, type}}">Xem thêm</router-link>
+            <router-link :to="{name: 'Detail', params: {id, type, menu}}">Xem thêm</router-link>
         </div>
     </div>
 </div>
@@ -34,6 +34,10 @@ export default {
             default: null
         },
         type: {
+            type: String,
+            default: null
+        },
+        menu: {
             type: String,
             default: null
         }
