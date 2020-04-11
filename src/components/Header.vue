@@ -59,10 +59,10 @@
                 </div>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-6">
-                <form>
-                    <input value="" type="text" placeholder="Tìm kiếm..." />
-                    <button><img class="img-fluid" src="~@/assets/img/btn-search.jpg" /></button>
-                </form>
+                <!--<form>-->
+                    <!--<input value="" type="text" placeholder="Tìm kiếm..." />-->
+                    <!--<button><img class="img-fluid" src="~@/assets/img/btn-search.jpg" /></button>-->
+                <!--</form>-->
             </div>
         </div>
     </div>

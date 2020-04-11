@@ -34,6 +34,18 @@ export default {
     components: {
         MenuLeft
     },
+    metaInfo () {
+        return {
+            meta: [
+                // Facebook OpenGraph
+                {property: 'og:title', content: this.post.title},
+                {property: 'og:site_name', content: 'Bếp Mộc'},
+                {property: 'og:type', content: 'website'},
+                {property: 'og:image', content: this.post.img},
+                {property: 'og:description', content: this.post.content}
+            ]
+        }
+    },
     data () {
         return {
             list: []
