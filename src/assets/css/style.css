@@ -80,6 +80,7 @@ body {
   font-size: 14px;
   max-width: 1920px;
   margin: auto;
+  background: white;
 }
 
 main {
@@ -646,7 +647,7 @@ input:focus {
 
   .main-content .content-text.d-none {
     display: block !important;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
 
   .main-content .content-text.d-none h3{
