@@ -1,8 +1,5 @@
 <template>
   <div>
-
-    <m-header :is-home="true"/>
-
     <!--<div style="text-align: center">-->
       <!--<b-spinner v-show="isLoading" label="Spinning" class="my-5"></b-spinner>-->
     <!--</div>-->
@@ -22,24 +19,18 @@
         />
       </main>
 
-      <m-footer v-if="!isLoading"/>
-
     </template>
   </div>
 </template>
 
 <script>
 import {db} from '@/config/firebase'
-import MHeader from '@/components/Header'
-import MFooter from '@/components/Footer'
 import Slide from '@/components/home/Slide'
 import Item from '@/components/home/Item'
 
 export default {
     name: 'Home',
     components: {
-        MHeader,
-        MFooter,
         Slide,
         Item
     },

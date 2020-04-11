@@ -26,92 +26,141 @@ const router = new Router({
         {
             path: '/',
             name: 'Home',
-            component: Home
+            component: Home,
+            meta: {
+                isHome: true
+            }
         },
         {
             path: '/menu',
             name: 'Menu',
-            component: Menu
+            component: Menu,
+            meta: {
+                isMenu: true
+            }
         },
         {
             path: '/menu/:id',
             name: 'MenuDetail',
-            component: Menu
+            component: Menu,
+            meta: {
+                isMenu: true
+            }
         },
         {
             path: '/menu/:type/:id',
             name: 'MenuPostDetail',
-            component: Detail
+            component: Detail,
+            meta: {
+                isMenu: true
+            }
         },
         {
             path: '/recipe',
             name: 'Recipe',
-            component: Recipe
+            component: Recipe,
+            meta: {
+                isRecipe: true
+            }
         },
         {
             path: '/recipe/:id',
             name: 'RecipeDetail',
-            component: Recipe
+            component: Recipe,
+            meta: {
+                isRecipe: true
+            }
         },
         {
             path: '/recipe/:type/:id',
             name: 'RecipePostDetail',
-            component: Detail
+            component: Detail,
+            meta: {
+                isRecipe: true
+            }
         },
         {
             path: '/contact',
             name: 'Contact',
-            component: Contact
+            component: Contact,
+            meta: {
+                isContact: true
+            }
         },
         {
             path: '/admin',
             name: 'Admin',
             component: Admin,
             meta: {
-                requiresAuth: true
+                requiresAuth: true,
+                isAdmin: true
             },
             children: [
                 {
                     path: 'slide',
                     name: 'Slide',
-                    component: AdminSlide
+                    component: AdminSlide,
+                    meta: {
+                        isAdmin: true
+                    }
                 },
                 {
                     path: 'content',
                     name: 'Content',
-                    component: AdminContent
+                    component: AdminContent,
+                    meta: {
+                        isAdmin: true
+                    }
                 },
                 {
                     path: 'menu-left',
                     name: 'AdminMenu',
-                    component: AdminMenu
+                    component: AdminMenu,
+                    meta: {
+                        isAdmin: true
+                    }
                 },
                 {
                     path: 'contact',
                     name: 'AdminContact',
-                    component: AdminContact
+                    component: AdminContact,
+                    meta: {
+                        isAdmin: true
+                    }
                 },
                 {
                     path: 'menu/category/:id',
                     name: 'AdminMenuCategory',
-                    component: AdminMenuCategory
+                    component: AdminMenuCategory,
+                    meta: {
+                        isAdmin: true
+                    }
                 },
                 {
                     path: 'menu/post/:id',
                     name: 'AdminMenuPost',
-                    component: AdminMenuPost
+                    component: AdminMenuPost,
+                    meta: {
+                        isAdmin: true
+                    }
                 },
                 {
                     path: 'menu/recipe/:id',
                     name: 'AdminRecipe',
-                    component: AdminRecipe
+                    component: AdminRecipe,
+                    meta: {
+                        isAdmin: true
+                    }
                 }
             ]
         },
         {
             path: '/login',
             name: 'Login',
-            component: Login
+            component: Login,
+            meta: {
+                isAdmin: true
+            }
         }
     ]
 })

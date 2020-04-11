@@ -1,7 +1,5 @@
 <template>
 <div>
-    <m-header :is-menu="true"/>
-
     <main>
         <div class="category-content">
             <menu-left />
@@ -24,23 +22,17 @@
             </div>
         </div>
     </main>
-
-    <m-footer />
 </div>
 </template>
 
 <script>
 import {db} from '@/config/firebase'
-import MHeader from '@/components/Header'
-import MFooter from '@/components/Footer'
 import MenuLeft from '@/components/MenuLeft'
 import Item from '@/components/detail/Item'
 
 export default {
     name: 'Menu',
     components: {
-        MHeader,
-        MFooter,
         MenuLeft,
         Item
     },

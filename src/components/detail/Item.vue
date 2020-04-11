@@ -7,7 +7,7 @@
         <div class="cate-text">
             <h3>{{ title }}</h3>
             <p>{{ content }}</p>
-            <router-link :to="{name: menu === 'menu' ? 'MenuPostDetail' : 'RecipePostDetail', params: {id, type, menu}}">Xem thêm</router-link>
+            <router-link :to="{name: menu === 'post' ? 'MenuPostDetail' : 'RecipePostDetail', params: {id, type, menu}}">Xem thêm</router-link>
         </div>
     </div>
 </div>
@@ -47,6 +47,6 @@ export default {
 
 <style scoped>
   img.img-fluid {
-    border-radius: 35px;
+    border-radius: 35px !important;
   }
 </style>

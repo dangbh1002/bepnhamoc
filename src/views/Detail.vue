@@ -1,7 +1,5 @@
 <template>
 <div>
-    <m-header :is-menu="isMenu" :is-recipe="!isMenu" />
-
     <main>
         <div class="category-content">
             <menu-left />
@@ -24,22 +22,16 @@
             </div>
         </div>
     </main>
-
-    <m-footer />
 </div>
 </template>
 
 <script>
 import {db} from '@/config/firebase'
-import MHeader from '@/components/Header'
-import MFooter from '@/components/Footer'
 import MenuLeft from '@/components/MenuLeft'
 
 export default {
     name: 'Detail',
     components: {
-        MHeader,
-        MFooter,
         MenuLeft
     },
     data () {
@@ -65,3 +57,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+  img.img-fluid {
+    border-radius: 35px !important;
+  }
+</style>

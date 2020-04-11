@@ -74,21 +74,9 @@ import {db} from '@/config/firebase'
 export default {
     name: 'Header',
     props: {
-        isHome: {
-            type: Boolean,
-            defaul: false
-        },
-        isMenu: {
-            type: Boolean,
-            defaul: false
-        },
-        isRecipe: {
-            type: Boolean,
-            defaul: false
-        },
-        isContact: {
-            type: Boolean,
-            defaul: false
+        activeData: {
+            type: Object,
+            default: () => {}
         }
     },
     data () {
@@ -97,6 +85,20 @@ export default {
             showMenuMenu: false,
             showMenuRecipe: false,
             list: []
+        }
+    },
+    computed: {
+        isHome () {
+            return this.$route.meta && this.$route.meta.isHome
+        },
+        isMenu () {
+            return this.$route.meta && this.$route.meta.isMenu
+        },
+        isRecipe () {
+            return this.$route.meta && this.$route.meta.isRecipe
+        },
+        isContact () {
+            return this.$route.meta && this.$route.meta.isContact
         }
     },
     firestore () {
