@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{name: type === 'recipe' ? 'Recipe' : 'Menu', params: {type}}">
+    <a :href="url">
       <div class="main-content">
         <div class="main-content-inner">
           <div class="content-text d-none">
@@ -16,13 +16,13 @@
           </div>
         </div>
       </div>
-    </router-link>
+    </a>
 
-    <router-link :to="{name: type === 'recipe' ? 'Recipe' : 'Menu', params: {type}}">
+    <a :href="url">
       <div class="banner">
           <img :src="banner" class="img-fluid p-0" alt=""/>
       </div>
-    </router-link>
+    </a>
   </div>
 </template>
 
@@ -46,11 +46,7 @@ export default {
             type: String,
             default: null
         },
-        type: {
-            type: String,
-            default: null
-        },
-        footer: {
+        url: {
             type: String,
             default: null
         }

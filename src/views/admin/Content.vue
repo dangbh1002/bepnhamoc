@@ -88,6 +88,25 @@
         </template>
       </template>
 
+      <template v-slot:cell(url)="{item}">
+        <template v-if="!isEditing.url[item['.key']]">
+          <div>{{item.url}}</div>
+          <b-button variant="outline-primary mt-3" @click="setModeEdit(item['.key'], 'url')">
+            Edit
+          </b-button>
+        </template>
+        <template v-else="">
+          <div><b-form-textarea v-model="url[item['.key']]" rows="5"/></div>
+
+          <b-button variant="primary mt-3" @click="updateData(item['.key'], 'url')">
+            Save
+          </b-button>
+          <b-button variant="secondary mt-3" @click="cancelEdit(item['.key'], 'url')">
+            Cancel
+          </b-button>
+        </template>
+      </template>
+
     </b-table>
   </div>
 
@@ -106,6 +125,7 @@ export default {
                 },
                 'title',
                 'content',
+                'url',
                 'banner'
             ],
             list: [],
@@ -117,7 +137,8 @@ export default {
             uploadValueBanner: {},
             title: {},
             content: {},
-            isEditing: {title: {}, content: {}}
+            url: {},
+            isEditing: {title: {}, content: {}, url: {}}
         }
     },
     firestore () {

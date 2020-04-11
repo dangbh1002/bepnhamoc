@@ -15,7 +15,7 @@
           :img="item.img"
           :title="item.title"
           :content="item.content"
-          :type="item.type"
+          :url="item.url"
         />
       </main>
 
