@@ -5,7 +5,7 @@
             <menu-left />
 
             <div class="column-right">
-                <div class="column-right-inner">
+                <div v-if="post.img" class="column-right-inner">
                     <div class="title-block">
                         <div class="image-and-title">
                             <img class="img-fluid" :src="post.img" alt="pr" />
@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style scoped>
-  img.img-fluid {
+  img.img-fluid, .category-content .column-right .content-block img {
     border-radius: 35px !important;
   }
 </style>

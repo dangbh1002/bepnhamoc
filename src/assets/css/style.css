@@ -424,6 +424,7 @@ input:focus {
 }
 .category-content .column-right .content-block img {
   width: 50%;
+  border-radius: 35px;
 }
 .category-content .column-right .title-block .image-and-title .title {
   width: 50%;

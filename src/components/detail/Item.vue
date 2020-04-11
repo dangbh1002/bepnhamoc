@@ -1,14 +1,18 @@
 <template>
 <div class="cate-item">
     <div class="cate-item-inner">
+      <router-link :to="{name: menu === 'post' ? 'MenuPostDetail' : 'RecipePostDetail', params: {id, type, menu}}">
         <div class="cate-image">
             <img :src="img" class="img-fluid" />
         </div>
         <div class="cate-text">
             <h3>{{ title }}</h3>
             <p>{{ content }}</p>
-            <router-link :to="{name: menu === 'post' ? 'MenuPostDetail' : 'RecipePostDetail', params: {id, type, menu}}">Xem thêm</router-link>
+            <router-link :to="{name: menu === 'post' ? 'MenuPostDetail' : 'RecipePostDetail', params: {id, type, menu}}" class="see-more">
+              Xem thêm
+            </router-link>
         </div>
+      </router-link>
     </div>
 </div>
 </template>
@@ -48,5 +52,15 @@ export default {
 <style scoped>
   img.img-fluid {
     border-radius: 35px !important;
+  }
+  a:hover {
+    text-decoration: none;
+    color: #3b2314;
+  }
+  a.see-more {
+    color: #f6921e;
+  }
+  a.see-more:hover {
+    text-decoration: underline;
   }
 </style>
