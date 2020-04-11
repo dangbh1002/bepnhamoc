@@ -149,7 +149,7 @@
         </template>
 
         <template v-slot:cell(action)="{item}">
-            <b-button variant="outline-secondary" @click="onDelete(row.item['.key'])">
+            <b-button variant="outline-secondary" @click="onDelete(item['.key'])">
               Delete
             </b-button>
         </template>

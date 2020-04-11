@@ -37,6 +37,25 @@
         </div>
       </template>
 
+      <template v-slot:cell(url)="{item}">
+        <template v-if="!isEditing[item['.key']]">
+          <div>{{item.url}}</div>
+          <b-button variant="outline-primary mt-3" @click="setModeEdit(item['.key'], 'url')">
+            Edit
+          </b-button>
+        </template>
+        <template v-else="">
+          <b-form-input v-model="url[item['.key']]"/>
+
+          <b-button variant="primary mt-3" @click="updateData(item['.key'], 'url')">
+            Save
+          </b-button>
+          <b-button variant="secondary mt-3" @click="cancelEdit(item['.key'], 'url')">
+            Cancel
+          </b-button>
+        </template>
+      </template>
+
     </b-table>
   </div>
 
@@ -61,11 +80,14 @@ export default {
                 {
                     key: 'preview',
                     label: 'Preview'
-                }
+                },
+                'url'
             ],
             imageData: {},
             preview: {},
-            uploadValue: {}
+            uploadValue: {},
+            url: {},
+            isEditing: {}
         }
     },
     firestore () {
@@ -115,6 +137,28 @@ export default {
                 .catch((error) => {
                     console.error(`file delete error occured: ${error}`)
                 })
+        },
+        getItem (key) {
+            return this.slide.filter((item) => item['.key'] === key)[0]
+        },
+        setModeEdit (key, type) {
+            this.isEditing = {...this.isEditing, [key]: true}
+            this[type] = {...this[type], [key]: this.getItem(key)[type]}
+        },
+        cancelEdit (key, type) {
+            this.isEditing = {...this.isEditing, [key]: false}
+            delete this[type][key]
+        },
+        updateData (key, type) {
+            this.$firestore.slide.doc(key).update({
+                [type]: this[type][key],
+                updatedAt: new Date().getTime()
+            }).then(() => {
+                this.isEditing[key] = false
+                console.log('Document successfully updated!')
+            }).catch((error) => {
+                console.error('Error' + error)
+            })
         }
     }
 }

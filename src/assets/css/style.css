@@ -422,6 +422,9 @@ input:focus {
 .category-content .column-right .title-block .image-and-title img {
   width: 50%;
 }
+.category-content .column-right .content-block img {
+  width: 50%;
+}
 .category-content .column-right .title-block .image-and-title .title {
   width: 50%;
   padding-left: 30px;
@@ -762,6 +765,10 @@ input:focus {
     display: inherit;
   }
   .category-content .column-right .title-block .image-and-title img {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  .category-content .column-right .content-block img {
     width: 100%;
     margin-bottom: 50px;
   }

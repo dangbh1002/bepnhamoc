@@ -2,7 +2,8 @@
 <b-carousel v-model="slide" :interval="4000" indicators class="slideshow">
     <b-carousel-slide v-for="(item, index) in data" :key=index>
         <template slot="img">
-            <img :src="item.img" class="img-fluid w-100" >
+          <a v-if="item.url" :href="item.url"><img :src="item.img" class="img-fluid w-100"></a>
+          <img v-else="" :src="item.img" class="img-fluid w-100">
         </template>
     </b-carousel-slide>
 </b-carousel>

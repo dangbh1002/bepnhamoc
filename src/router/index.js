@@ -5,7 +5,7 @@ import Menu from '@/views/Menu'
 import Recipe from '@/views/Recipe'
 import Detail from '@/views/Detail'
 import Contact from '@/views/ContactUs'
-import Admin from '@/views/Admin'
+import Admin from '@/views/admin/Admin'
 import AdminSlide from '@/views/admin/Slide'
 import AdminContent from '@/views/admin/Content'
 import AdminMenu from '@/views/admin/MenuLeft'
@@ -17,6 +17,7 @@ import AdminRecipe from '@/views/admin/Recipe'
 import Login from '@/views/Login'
 
 import {auth} from '@/config/firebase'
+import VueAnalytics from 'vue-analytics'
 
 Vue.use(Router)
 
@@ -173,6 +174,14 @@ router.beforeEach((to, from, next) => {
     } else {
         next()
     }
+})
+
+Vue.use(VueAnalytics, {
+    id: 'UA-161644222-1',
+    // disableScriptLoader: true,
+    router,
+    prependBase: false,
+    ignoreRoutes: ['/admin', '/admin/*', 'login']
 })
 
 export default router
