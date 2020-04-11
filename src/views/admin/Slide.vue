@@ -90,7 +90,8 @@ export default {
                 storageRef.snapshot.ref.getDownloadURL().then((url) => {
                     this.$firestore.slide.doc(key).update({
                         img: url,
-                        name: imgName
+                        name: imgName,
+                        updatedAt: new Date().getTime()
                     }).then(() => {
                         this.uploadValue[key] = 100
                         this.imageData[key] = null

@@ -18,7 +18,6 @@
           :img="item.img"
           :title="item.title"
           :content="item.content"
-          :footer="item.footer"
           :type="item.type"
         />
       </main>

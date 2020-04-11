@@ -8,18 +8,18 @@
 
             <div class="column-right">
                 <div class="column-right-inner">
-                    <item v-for="(item, key) in list"
+                    <item v-for="(item, key) in post"
                       :key="key"
                       :content="item.content"
                       :img="item.img"
                       :title="item.title"
                       :type="item.menuId"
                       :id="item.nickName"
-                      menu="menu"
+                      menu="post"
                     />
-                    <div v-if="enableMore" class="read-more">
-                        <a href="#" title="">Xem thêm <i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
-                    </div>
+                    <!--<div v-if="enableMore" class="read-more">-->
+                        <!--<a href="#" title="">Xem thêm <i class="fa fa-angle-double-down" aria-hidden="true"></i></a>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -47,14 +47,12 @@ export default {
     firestore () {
         return {
             menu: db.collection('menu'),
-            post: db.collection('post').where('menuId', '==', this.id),
-            list: db.collection('post').where('menuId', '==', this.id)
+            post: db.collection('post').where('menuId', '==', this.id)
         }
     },
     data () {
         return {
-            post: [],
-            list: []
+            post: []
         }
     },
     computed: {

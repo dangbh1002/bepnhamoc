@@ -69,25 +69,6 @@
         </template>
       </template>
 
-      <template v-slot:cell(footer)="{item}">
-        <template v-if="!isEditing.footer[item['.key']]">
-          <div>{{item.footer}}</div>
-          <b-button variant="outline-primary mt-3" @click="setModeEdit(item['.key'], 'footer')">
-            Edit
-          </b-button>
-        </template>
-        <template v-else="">
-          <b-form-input v-model="footer[item['.key']]"/>
-
-          <b-button variant="primary mt-3" @click="updateData(item['.key'], 'footer')">
-            Save
-          </b-button>
-          <b-button variant="secondary mt-3" @click="cancelEdit(item['.key'], 'footer')">
-            Cancel
-          </b-button>
-        </template>
-      </template>
-
       <template v-slot:cell(content)="{item}">
         <template v-if="!isEditing.content[item['.key']]">
           <div>{{item.content}}</div>
@@ -125,7 +106,6 @@ export default {
                 },
                 'title',
                 'content',
-                'footer',
                 'banner'
             ],
             list: [],
@@ -136,9 +116,8 @@ export default {
             previewBanner: {},
             uploadValueBanner: {},
             title: {},
-            footer: {},
             content: {},
-            isEditing: {title: {}, footer: {}, content: {}}
+            isEditing: {title: {}, content: {}}
         }
     },
     firestore () {
@@ -166,7 +145,8 @@ export default {
                 storageRef.snapshot.ref.getDownloadURL().then((url) => {
                     this.$firestore.list.doc(key).update({
                         img: url,
-                        imgName
+                        imgName,
+                        updatedAt: new Date().getTime()
                     }).then(() => {
                         this.uploadValue[key] = 100
                         this.imageData[key] = null
@@ -207,7 +187,8 @@ export default {
                 storageRef.snapshot.ref.getDownloadURL().then((url) => {
                     this.$firestore.list.doc(key).update({
                         banner: url,
-                        bannerName: imgName
+                        bannerName: imgName,
+                        updatedAt: new Date().getTime()
                     }).then(() => {
                         this.uploadValueBanner[key] = 100
                         this.imageDataBanner[key] = null
@@ -231,7 +212,8 @@ export default {
         },
         updateData (key, type) {
             this.$firestore.list.doc(key).update({
-                [type]: this[type][key]
+                [type]: this[type][key],
+                updatedAt: new Date().getTime()
             }).then(() => {
                 this.isEditing[type][key] = false
                 console.log('Document successfully updated!')

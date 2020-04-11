@@ -9,7 +9,6 @@
             <div class="content-text">
               <h3>{{ title }}</h3>
               <p>{{ content }}</p>
-              <p class="text-below">{{ footer }}</p>
             </div>
         </div>
       </div>
@@ -59,5 +58,11 @@ export default {
   a:hover {
     text-decoration: none;
     color: #3b2314;
+  }
+  img.img-fluid {
+    border-radius: 35px;
+  }
+  .banner img.img-fluid {
+    border-radius: 0px !important;
   }
 </style>

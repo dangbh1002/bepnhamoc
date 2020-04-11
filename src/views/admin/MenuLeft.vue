@@ -102,7 +102,8 @@ export default {
             this.$firestore.list.add({
                 name: this.name,
                 order: this.list.length + 1,
-                child: {}
+                child: {},
+                createdAt: new Date().getTime()
             }).then(() => {
                 this.errorEmpty = null
                 console.log('Document successfully updated!')
@@ -130,14 +131,15 @@ export default {
         },
         onUpdate (key) {
             this.$firestore.list.doc(key).update({
-                name: this.nameUpdate[key]
+                name: this.nameUpdate[key],
+                updatedAt: new Date().getTime()
             }).then(() => {
                 this.isEditing = {...this.isEditing, [key]: false}
                 console.log('Document successfully updated!')
             }).catch((error) => {
                 console.error('Error' + error)
             })
-        },
+        }
     }
 }
 </script>

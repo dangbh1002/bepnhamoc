@@ -174,7 +174,7 @@ export default {
                 return
             }
             this.$firestore.list.doc(key).update({
-                child: {...this.getChild(key), [this.childNickName]: this.childName}
+                child: {...this.getChild(key), [this.childNickName]: this.childName},
             }).then(() => {
                 this.errorAdd = null
                 this.errorEmpty = null
@@ -211,7 +211,8 @@ export default {
         },
         onUpdate (key) {
             this.$firestore.list.doc(this.selectDetail).update({
-                child: {...this.getChild(this.selectDetail), [key]: this.childNameUpdate[key]}
+                child: {...this.getChild(this.selectDetail), [key]: this.childNameUpdate[key]},
+                updatedAt: new Date().getTime()
             }).then(() => {
                 this.isEditing = {...this.isEditing, [key]: false}
                 console.log('Document successfully updated!')

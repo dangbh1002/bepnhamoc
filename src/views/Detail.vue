@@ -1,6 +1,6 @@
 <template>
 <div>
-    <m-header :is-menu="menu" :is-recipe="!menu" />
+    <m-header :is-menu="isMenu" :is-recipe="!isMenu" />
 
     <main>
         <div class="category-content">
@@ -54,7 +54,10 @@ export default {
     },
     computed: {
         menu () {
-            return this.$route.params.menu
+            return this.$route.params.menu || 'post'
+        },
+        isMenu () {
+            return this.menu === 'post'
         },
         post () {
             return this.list.length ? this.list[0] : {}

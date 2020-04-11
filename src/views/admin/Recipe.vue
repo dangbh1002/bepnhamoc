@@ -286,7 +286,8 @@ export default {
                             content: this.newContent,
                             nickName: this.nickName,
                             editorData: this.newEditorData,
-                            createdAt: new Date().getTime()
+                            createdAt: new Date().getTime(),
+                            updatedAt: new Date().getTime()
                         }).then(() => {
                             this.newTitle = null
                             this.nickName = null
@@ -317,7 +318,8 @@ export default {
                 storageRef.snapshot.ref.getDownloadURL().then((url) => {
                     this.$firestore.recipe.doc(key).update({
                         img: url,
-                        imgName
+                        imgName,
+                        updatedAt: new Date().getTime()
                     }).then(() => {
                         this.uploadValue[key] = 100
                         this.imageData[key] = null
@@ -353,7 +355,8 @@ export default {
         },
         updateData (key, type) {
             this.$firestore.recipe.doc(key).update({
-                [type]: this[type][key]
+                [type]: this[type][key],
+                updatedAt: new Date().getTime()
             }).then(() => {
                 this.isEditing[type][key] = false
                 console.log('Document successfully updated!')
@@ -374,7 +377,7 @@ export default {
         },
         handleImageAdded: function (file, Editor, cursorLocation, resetUploader) {
             // upload image
-            const imgName = `recipe/${this.selectDetail}/${new Date().getTime()}-${file.name}`
+            const imgName = `editor/recipe/${this.selectDetail}/${new Date().getTime()}-${file.name}`
             const storageRef = firestorage.ref(imgName).put(file)
             storageRef.on(`state_changed`, snapshot => {}, error => { console.log(error.message) },
                 () => {

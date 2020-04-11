@@ -84,6 +84,7 @@ body {
 
 main {
   min-height: 100vh;
+  margin-bottom: -2px;
 }
 
 a {
@@ -328,7 +329,7 @@ input:focus {
   float: left;
   background: #f0eeed;
   padding: 60px 15px 0 60px;
-  height: 100vh;
+  min-height: 100vh;
 }
 .category-content .column-left ul li a {
   font-family: 'SVN-Segoe-UI-Light';
@@ -514,6 +515,9 @@ input:focus {
 }
 
 @media (max-width: 1199px) {
+  main {
+    margin-bottom: -12px;
+  }
   .navbar .collapsing {
     display: none;
   }
@@ -610,10 +614,6 @@ input:focus {
     position: absolute;
     left: 206px;
     top: 74px;
-  }
-  .banner {
-    margin-top: 40px;
-    /*display: none;*/
   }
   .main-content .main-content-inner {
     display: inherit;
@@ -718,8 +718,8 @@ input:focus {
    .header .navbar-expand-lg .navbar-nav .dropdown-menu .dropdown-item:before {
     content: '';
     background-image: url('../img/square-empty.png');
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     display: block;
     background-size: 100%;
     margin-right: 10px;
