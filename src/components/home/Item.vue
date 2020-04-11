@@ -3,13 +3,17 @@
     <router-link :to="{name: type === 'recipe' ? 'Recipe' : 'Menu', params: {type}}">
       <div class="main-content">
         <div class="main-content-inner">
+          <div class="content-text d-none">
+            <h3>{{ title }}</h3>
+            <hr>
+          </div>
           <div class="content-image">
               <img :src="img" class="img-fluid"/>
           </div>
-            <div class="content-text">
-              <h3>{{ title }}</h3>
-              <p>{{ content }}</p>
-            </div>
+          <div class="content-text content-text-sp">
+            <h3>{{ title }}</h3>
+            <p>{{ content }}</p>
+          </div>
         </div>
       </div>
     </router-link>

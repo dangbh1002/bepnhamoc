@@ -15,7 +15,7 @@
                         <div class="bg-over-lay"></div>
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <router-link :to="{name: 'Home'}" :class="{'active': isHome}" class="nav-link">Home -<span class="sr-only">(current)</span></router-link>
+                                <router-link :to="{name: 'Home'}" :class="{'active': isHome}" class="nav-link" @click.native="closeMenu">Home -<span class="sr-only">(current)</span></router-link>
                             </li>
                             <li class="nav-item">
                                 <router-link v-if="!showMenu" :to="{name: 'Menu'}" :class="{'active': isMenu}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Menu -</router-link>
@@ -24,7 +24,7 @@
                                   <div v-for="(item, index) in list" :key="index">
                                     <template v-if="Object.keys(item.child).length">
                                       <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
-                                          <router-link :to="{name: 'MenuDetail', params: {id}}" class="dropdown-item">
+                                          <router-link :to="{name: 'MenuDetail', params: {id}}" class="dropdown-item" @click.native="closeMenu">
                                             {{ item.child[id] }}
                                           </router-link>
                                       </li>
@@ -39,7 +39,7 @@
                                   <div v-for="(item, index) in list" :key="index">
                                     <template v-if="Object.keys(item.child).length">
                                       <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
-                                        <router-link :to="{name: 'RecipeDetail', params: {id}}" class="dropdown-item">
+                                        <router-link :to="{name: 'RecipeDetail', params: {id}}" class="dropdown-item" @click.native="closeMenu">
                                           {{ item.child[id] }}
                                         </router-link>
                                       </li>
@@ -48,7 +48,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                              <router-link :to="{name: 'Contact'}" :class="{'active': isContact}" class="nav-link" >Contact us -</router-link>
+                              <router-link :to="{name: 'Contact'}" :class="{'active': isContact}" class="nav-link" @click.native="closeMenu">Contact us -</router-link>
                             </li>
                         </ul>
                     </div>
@@ -87,6 +87,12 @@ export default {
             list: []
         }
     },
+    watch: {
+        '$route.meta': () => {
+            console.log(123)
+            this.showMenu = false
+        }
+    },
     computed: {
         isHome () {
             return this.$route.meta && this.$route.meta.isHome
@@ -109,6 +115,9 @@ export default {
     methods: {
         toogleMenu () {
             this.showMenu = !this.showMenu
+        },
+        closeMenu () {
+            this.showMenu = false
         },
         toogleMenuMenu () {
             this.showMenuMenu = !this.showMenuMenu
