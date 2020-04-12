@@ -37,8 +37,6 @@ export default {
     metaInfo () {
         return {
             meta: [
-                {name: 'image', content: this.post.img},
-                {name: 'desc', content: this.post.content},
                 // Facebook OpenGraph
                 {property: 'fb:app_id', content: 656444195140323},
                 {property: 'og:title', content: this.post.title},

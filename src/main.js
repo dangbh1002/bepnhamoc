@@ -25,9 +25,13 @@ Vue.use(Meta)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-new Vue({
-    el: '#app',
+const root = new Vue({
+    // el: '#app',
     router,
     components: { App },
     template: '<App/>'
+})
+
+document.addEventListener('DOMContentLoaded', function () {
+    root.$mount('#app')
 })
