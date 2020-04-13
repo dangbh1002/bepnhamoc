@@ -1,9 +1,9 @@
 <template>
 <div>
     <main>
-        <div class="category-content">
+        <div class="category-content contact-content">
             <div class="column-right">
-                <div class="column-right-inner">
+                <div class="column-right-inner contact">
                   <div v-html="data.editorData" />
                 </div>
             </div>
@@ -26,7 +26,7 @@ export default {
         return {
             data: {}
         }
-    },
+    }
 }
 </script>
 

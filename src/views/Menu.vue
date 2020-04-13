@@ -6,15 +6,20 @@
 
             <div class="column-right">
                 <div class="column-right-inner">
-                    <item v-for="(item, key) in post"
-                      :key="key"
-                      :content="item.content"
-                      :img="item.img"
-                      :title="item.title"
-                      :type="item.menuId"
-                      :id="item.nickName"
-                      menu="post"
-                    />
+                    <template v-if="post && post.length">
+                        <item v-for="(item, key) in post"
+                        :key="key"
+                        :content="item.content"
+                        :img="item.img"
+                        :title="item.title"
+                        :type="item.menuId"
+                        :id="item.nickName"
+                        menu="post"
+                        />
+                    </template>
+                    <div v-else-if="isLoaded">
+                        Coming soon...
+                    </div>
                     <!--<div v-if="enableMore" class="read-more">-->
                         <!--<a href="#" title="">Xem thêm <i class="fa fa-angle-double-down" aria-hidden="true"></i></a>-->
                     <!--</div>-->
@@ -44,7 +49,15 @@ export default {
     },
     data () {
         return {
-            post: []
+            post: [],
+            isLoaded: false
+        }
+    },
+    created () {
+        if (this.post) {
+            setTimeout(() => {
+                this.isLoaded = true
+            }, 2000)
         }
     },
     computed: {

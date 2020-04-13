@@ -174,7 +174,7 @@ export default {
                 return
             }
             this.$firestore.list.doc(key).update({
-                child: {...this.getChild(key), [this.childNickName]: this.childName},
+                child: {...this.getChild(key), [this.childNickName]: this.childName}
             }).then(() => {
                 this.errorAdd = null
                 this.errorEmpty = null
