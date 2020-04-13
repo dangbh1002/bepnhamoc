@@ -14,6 +14,7 @@ const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 
 const env = require('../config/prod.env')
+const routerList = require('./router-list')
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -77,16 +78,9 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
     new PrerenderSPAPlugin({
-      staticDir: path.join(__dirname, 'dist'),
-      routes: [ '/', '/menu/banh-a/banh-dua-taiwan', '/recipe', '/contact' ],
-
-      renderer: new Renderer({
-        inject: {
-          foo: 'bar'
-        },
-        headless: true,
-        renderAfterDocumentEvent: 'render-event'
-      })
+      staticDir: path.join(__dirname, '../dist'),
+      routes: routerList,
+      renderer: new Renderer()
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
