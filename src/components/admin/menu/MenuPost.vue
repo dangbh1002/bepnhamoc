@@ -194,7 +194,7 @@ export default {
     firestore () {
         return {
             post: db.collection('post'),
-            list: db.collection('post').where('menuId', '==', this.selectDetail).limit(4)
+            list: db.collection('post').where('menuId', '==', this.selectDetail)
         }
     },
     watch: {

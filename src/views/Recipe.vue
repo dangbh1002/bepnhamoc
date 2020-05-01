@@ -65,7 +65,7 @@ export default {
             return this.post && this.post.length > 4
         },
         id () {
-            return this.$route.params.id || 'banh-a'
+            return this.$route.params.id || 'mon-an-viet-nam'
         }
     },
     watch: {
@@ -75,3 +75,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.category-content .column-right .cate-item:first-child {
+    min-height: 650px;
+    margin-bottom: 0;
+}
+</style>

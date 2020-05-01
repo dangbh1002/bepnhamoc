@@ -57,7 +57,7 @@
               </li>
 
               <li v-for="(item, index) in listByOrder" :key="index">
-                <div v-if="Object.keys(item.child).length">
+                <div v-if="Object.keys(item.child).length && item.type === 'bakery'">
                   <div v-for="(id, k) in Object.keys(item.child)" :key="k">
                     <router-link :to="{name: 'AdminMenuPost', params: {id, name: item.child[id]}}">
                       <i class="fa fa-circle"></i>
@@ -75,7 +75,7 @@
               </li>
 
               <li v-for="(item, index) in listByOrder" :key="index">
-                <div v-if="Object.keys(item.child).length">
+                <div v-if="Object.keys(item.child).length && item.type === 'food'">
                   <div v-for="(id, k) in Object.keys(item.child)" :key="k">
                     <router-link :to="{name: 'AdminRecipe', params: {id, name: item.child[id]}}">
                       <i class="fa fa-circle"></i>

@@ -33,6 +33,62 @@ const router = new Router({
             }
         },
         {
+            path: '/bakery',
+            name: 'Menu',
+            component: Menu,
+            meta: {
+                isMenu: true
+            }
+        },
+        {
+            path: '/bakery/:id',
+            name: 'MenuDetail',
+            component: Menu,
+            meta: {
+                isMenu: true
+            }
+        },
+        {
+            path: '/bakery/:type/:id',
+            name: 'MenuPostDetail',
+            component: Detail,
+            meta: {
+                isMenu: true
+            }
+        },
+        {
+            path: '/food',
+            name: 'Recipe',
+            component: Recipe,
+            meta: {
+                isRecipe: true
+            }
+        },
+        {
+            path: '/food/:id',
+            name: 'RecipeDetail',
+            component: Recipe,
+            meta: {
+                isRecipe: true
+            }
+        },
+        {
+            path: '/food/:type/:id',
+            name: 'RecipePostDetail',
+            component: Detail,
+            meta: {
+                isRecipe: true
+            }
+        },
+        {
+            path: '/contact',
+            name: 'Contact',
+            component: Contact,
+            meta: {
+                isContact: true
+            }
+        },
+        {
             path: '/menu',
             name: 'Menu',
             component: Menu,
@@ -78,14 +134,6 @@ const router = new Router({
             component: Detail,
             meta: {
                 isRecipe: true
-            }
-        },
-        {
-            path: '/contact',
-            name: 'Contact',
-            component: Contact,
-            meta: {
-                isContact: true
             }
         },
         {

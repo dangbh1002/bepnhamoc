@@ -18,11 +18,11 @@
                                 <router-link :to="{name: 'Home'}" :class="{'active': isHome}" class="nav-link" @click.native="closeMenu">Home -<span class="sr-only">(current)</span></router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link v-if="!showMenu" :to="{name: 'Menu'}" :class="{'active': isMenu}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Menu -</router-link>
-                                <a v-else="" :class="{'active': isMenu}" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" @click="toogleMenuMenu">Menu -</a>
+                                <router-link v-if="!showMenu" :to="{name: 'Menu'}" :class="{'active': isMenu}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Bakery -</router-link>
+                                <a v-else="" :class="{'active': isMenu}" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" @click="toogleMenuMenu">Bakery -</a>
                                 <ul :class="{'show': showMenu && showMenuMenu}" class="dropdown-menu" aria-labelledby="navbarDropdown">
                                   <div v-for="(item, index) in list" :key="index">
-                                    <template v-if="Object.keys(item.child).length">
+                                    <template v-if="Object.keys(item.child).length && item.type === 'bakery'">
                                       <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
                                           <router-link :to="{name: 'MenuDetail', params: {id}}" class="dropdown-item" @click.native="closeMenu">
                                             {{ item.child[id] }}
@@ -33,11 +33,11 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <router-link v-if="!showMenu" :to="{name: 'Recipe'}" :class="{'active': isRecipe}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Recipe -</router-link>
-                                <a v-else="" class="nav-link dropdown-toggle" role="button" @click="toogleMenuRecipe">Recipe -</a>
+                                <router-link v-if="!showMenu" :to="{name: 'Recipe'}" :class="{'active': isRecipe}" class="nav-link dropdown-toggle" @click="toogleMenuMenu">Food -</router-link>
+                                <a v-else="" class="nav-link dropdown-toggle" role="button" @click="toogleMenuRecipe">Food -</a>
                                 <ul :class="{'show': showMenu && showMenuRecipe}" class="dropdown-menu" aria-labelledby="navbarDropdown">
                                   <div v-for="(item, index) in list" :key="index">
-                                    <template v-if="Object.keys(item.child).length">
+                                    <template v-if="Object.keys(item.child).length && item.type === 'food'">
                                       <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
                                         <router-link :to="{name: 'RecipeDetail', params: {id}}" class="dropdown-item" @click.native="closeMenu">
                                           {{ item.child[id] }}
@@ -89,7 +89,7 @@ export default {
     },
     watch: {
         '$route.meta': () => {
-            console.log(123)
+            // console.log(123)
             this.showMenu = false
         }
     },

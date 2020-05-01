@@ -2,7 +2,7 @@
 <div>
     <main>
         <div class="category-content">
-            <menu-left />
+            <menu-left :is-recipe="!isMenu"/>
 
             <div class="column-right">
                 <div v-if="post.img" class="column-right-inner">
@@ -57,7 +57,7 @@ export default {
     },
     computed: {
         menu () {
-            return this.$route.params.menu || 'post'
+            return this.$route.params.menu || (this.$route.name === 'RecipePostDetail' && 'recipe') || 'post'
         },
         isMenu () {
             return this.menu === 'post'

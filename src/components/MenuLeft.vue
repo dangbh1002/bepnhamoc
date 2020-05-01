@@ -1,15 +1,17 @@
 <template>
 <div class="column-left">
     <ul>
-        <li v-for="(item, key) in list" :key="key" v-if="getFirstChild(item['.key'])">
-            <router-link :to="{name: !isRecipe ? 'MenuDetail' : 'RecipeDetail', params: {id: getFirstChild(item['.key']) }}" :class="{ 'selected': activeArr.includes(item['.key']) }">
-              {{item.name}}
-            </router-link>
-            <ul v-if="Object.keys(item.child).length" class="nqt-submenu">
-                <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
-                    <router-link :to="{name: !isRecipe ? 'MenuDetail' : 'RecipeDetail', params: {id}}" :class="{'selected': activeArr.includes(id) }" class="dropdown-item">{{item.child[id]}}</router-link>
-                </li>
-            </ul>
+        <li v-for="(item, key) in list" :key="key">
+            <template v-if="getFirstChild(item['.key'])">
+                <router-link :to="{name: !isRecipe ? 'MenuDetail' : 'RecipeDetail', params: {id: getFirstChild(item['.key']) }}" :class="{ 'selected': activeArr.includes(item['.key']) }">
+                {{item.name}}
+                </router-link>
+                <ul v-if="Object.keys(item.child).length" class="nqt-submenu">
+                    <li v-for="(id, k) in Object.keys(item.child)" :key="k" class="nav-item">
+                        <router-link :to="{name: !isRecipe ? 'MenuDetail' : 'RecipeDetail', params: {id}}" :class="{'selected': activeArr.includes(id) }" class="dropdown-item">{{item.child[id]}}</router-link>
+                    </li>
+                </ul>
+            </template>
         </li>
     </ul>
 </div>
@@ -32,13 +34,13 @@ export default {
     },
     firestore () {
         return {
-            list: db.collection('menu')
+            list: db.collection('menu').where('type', '==', this.isRecipe ? 'food' : 'bakery')
         }
     },
     computed: {
         activeArr () {
             const arr = []
-            const selected = this.selected || 'banh-a'
+            const selected = this.selected || (this.isRecipe ? 'mon-an-viet-nam' : 'banh-a')
             const filter = this.list.filter((item) => item.child[selected])
             arr.push(selected)
             if (filter && filter.length) {
