@@ -3,7 +3,6 @@
     <div class="footer">
         <div class="logo-footer">
             <img src="~@/assets/img/ft-logo.png" />
-            <span>Bakery & food</span>
         </div>
         <div class="ft-social">
             <ul>

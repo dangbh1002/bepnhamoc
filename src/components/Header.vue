@@ -54,8 +54,8 @@
                     </div>
                 </nav>
                 <div class="logo">
-                    <a class="hidden-sm-down" href="/"><img class="img-fluid" src="~@/assets/img/logo.png" /></a>
-                    <a class="hidden-md-up" href="/"><img class="img-fluid" src="~@/assets/img/logo-mobile.jpg" /></a>
+                    <a class="hidden-sm-down" href="/"><img class="img-fluid" style="height: 59px" src="~@/assets/img/logo.png" /></a>
+                    <a class="hidden-md-up" href="/"><img class="img-fluid" style="height: 59px" src="~@/assets/img/logo-mobile.png" /></a>
                 </div>
             </div>
             <div class="col-md-2 col-sm-2 col-xs-6">

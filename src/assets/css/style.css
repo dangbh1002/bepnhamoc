@@ -644,14 +644,14 @@ input:focus {
     display: none;
   }
   .footer {
-    padding: 10px 30px 50px;
+    padding: 10px 30px 40px;
     position: relative;
     margin-top: 10px;
   }
   .ft-social {
     position: absolute;
     left: 206px;
-    top: 74px;
+    top: 30px;
   }
   .main-content .main-content-inner {
     display: inherit;
@@ -912,18 +912,18 @@ input:focus {
 @media (max-width: 767px) and (min-width: 576px) {
   .ft-social {
     top: 25px;
-    left: 60%;
+    left: 24%;
   }
   .ft-email {
-    width: 50%;
+    width: 45%;
     display: inline-block;
     padding-top: 0;
-    padding-left: 13%;
+    padding-left: 6%;
   }
   .ft-phone {
-    width: 50%;
+    width: 53%;
     float: left;
-    padding-left: 20%;
+    padding-left: 23%;
     padding-top: 0;
   }
 }
@@ -931,12 +931,12 @@ input:focus {
   .ft-phone {
     position: absolute;
     left: 500px;
-    top: 40px;
+    top: 20px;
   }
   .ft-email {
     position: absolute;
     left: 500px;
-    top: 80px;
+    top: 65px;
   }
 }
 @media (min-width: 1440px) {
