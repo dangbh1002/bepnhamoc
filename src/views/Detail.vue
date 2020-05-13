@@ -9,7 +9,7 @@
                     <div class="title-block">
                         <div class="image-and-title">
                             <img class="img-fluid" :src="post.img" alt="pr" />
-                            <div class="title">
+                            <div :class="{'fs-auto': post.title.split(' ').length > 9}" class="title">
                                 <h1>{{ post.title }}</h1>
                             </div>
                         </div>
@@ -72,5 +72,8 @@ export default {
 <style scoped>
   img.img-fluid, .category-content .column-right .content-block img {
     border-radius: 35px !important;
+  }
+  .fs-auto h1{
+      font-size: 2.5rem !important;
   }
 </style>

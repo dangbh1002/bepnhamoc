@@ -116,7 +116,7 @@ input:focus {
 
 /* header */
 .header {
-  padding: 25px 40px;
+  padding: 40px 40px 25px 40px;
 }
 .header .navbar-nav {
   display: -webkit-box;
@@ -163,7 +163,7 @@ input:focus {
 }
 .header .logo {
   position: absolute;
-  top: -25px;
+  top: -50px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -393,6 +393,7 @@ input:focus {
   float: left;
   padding: 0 25px;
   margin-bottom: 60px;
+  min-height: fit-content;
 }
 .category-content .column-right .cate-item-inner {
   max-width: 480px;
@@ -545,6 +546,9 @@ input:focus {
   }
   .footer {
     padding: 10px 30px;
+  }
+  .category-content .column-right .title-block .image-and-title h1 {
+    font-size: 40px;
   }
 }
 

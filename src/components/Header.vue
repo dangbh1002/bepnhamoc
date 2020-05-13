@@ -54,7 +54,7 @@
                     </div>
                 </nav>
                 <div class="logo">
-                    <a class="hidden-sm-down" href="/"><img class="img-fluid" style="height: 59px" src="~@/assets/img/logo.png" /></a>
+                    <a class="hidden-sm-down" href="/"><img class="img-fluid" style="width: 85px" src="~@/assets/img/new lg-04.png" /></a>
                     <a class="hidden-md-up" href="/"><img class="img-fluid" style="height: 59px" src="~@/assets/img/logo-mobile.png" /></a>
                 </div>
             </div>

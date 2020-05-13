@@ -15,4 +15,6 @@ module.exports = [
     '/food/mon-an-viet-nam/chan-ga-ngam-sa-tac',
     '/food',
     '/food/mon-an-viet-nam/cach-lam-mon-trung-muoi-sieu-don-gian-tai-nha',
+    '/bakery',
+    '/bakery/banh-au/biscotti-nguyen-cam-–-protein-bar-–--danh-cho-nguoi-kieng,-gymers,-runners',
 ]

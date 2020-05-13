@@ -75,10 +75,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.category-content .column-right .cate-item:first-child {
-    min-height: 650px;
-    margin-bottom: 0;
-}
-</style>
